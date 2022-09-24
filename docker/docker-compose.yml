@@ -1,0 +1,47 @@
+version: "3.1"
+services:
+  fpm:
+    container_name: ${APP_PREFIX}-php-fpm
+    image: angelxmoreno/php-fpm-alpine:3.0.0
+    restart: on-failure
+    volumes:
+      - ../:/var/www/html
+  nginx:
+    container_name: ${APP_PREFIX}-nginx
+    image: nginx:1.23-alpine
+    restart: on-failure
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ../:/var/www/html
+    ports:
+      - ${FPM_PORT}:80
+  mysql:
+    container_name: ${APP_PREFIX}-mariadb
+    image: mariadb:10.6
+    restart: on-failure
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=${APP_PREFIX}
+      - MYSQL_USER=${APP_PREFIX}
+      - MYSQL_PASSWORD=${APP_PREFIX}
+      - MYSQL_DATABASE=${APP_PREFIX}
+    volumes:
+      - ./data/mysql:/var/lib/mysql:delegated
+    ports:
+      - ${MYSQL_PORT}:3306
+  mailhog:
+    container_name: ${APP_PREFIX}-mailhog
+    image: mailhog/mailhog:v1.0.1
+    restart: on-failure
+    ports:
+      - ${MAILHOG_UI_PORT}:8025
+      - ${MAILHOG_SMTP_PORT}:1025
+  redis:
+    container_name: ${APP_PREFIX}-redis
+    image: redis:7.0-alpine3.16
+    restart: on-failure
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data/redis:/data:delegated
+    ports:
+      - ${REDIS_PORT}:6379
