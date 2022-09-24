@@ -1,7 +1,10 @@
 <?php
 /**
- * @var \Cake\View\View $this
+ * @var View $this
  */
+
+use Cake\View\View;
+
 $this->Html->css('BootstrapUI.signin', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',

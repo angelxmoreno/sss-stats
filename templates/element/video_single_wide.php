@@ -1,7 +1,10 @@
 <?php
 /**
- * @var \App\View\AppView $this
+ * @var AppView $this
  */
+
+use App\View\AppView;
+
 ?>
 <div class="row gx-4 gx-lg-5 align-items-center my-2">
     <div class="col-lg-7">
