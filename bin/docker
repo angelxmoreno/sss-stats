@@ -17,16 +17,21 @@ case "$1" in
     ;;
 "composer")
     # shellcheck disable=SC2039
-    docker exec -it "${APP_PREFIX}"-php-fpm composer "${*:2}"
+    docker exec -it "${APP_PREFIX}"-php-fpm composer ${*:2}
     ;;
 "fpm")
     # shellcheck disable=SC2039
-    docker exec -it "${APP_PREFIX}"-php-fpm "${*:2}"
+    # shellcheck disable=SC2086
+    docker exec -it "${APP_PREFIX}"-php-fpm ${*:2}
     ;;
 "cake")
-    docker exec -it "${APP_PREFIX}"-php-fpm bin/cake "${*:2}"
+    # shellcheck disable=SC2086
+    # shellcheck disable=SC2039
+    docker exec -it "${APP_PREFIX}"-php-fpm bin/cake ${*:2}
     ;;
 "migration_diff")
-    docker exec -it "${APP_PREFIX}"-php-fpm bin/cake bake migration_diff "${*:2}"
+    # shellcheck disable=SC2086
+    # shellcheck disable=SC2039
+    docker exec -it "${APP_PREFIX}"-php-fpm bin/cake bake migration_diff ${*:2}
     ;;
 esac
