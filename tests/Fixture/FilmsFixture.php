@@ -23,10 +23,10 @@ class FilmsFixture extends TestFixture
                 'episode_id' => 1,
                 'user_id' => 1,
                 'submitted_by' => 1,
-                'title' => 1,
-                'link' => 1,
-                'created' => '2022-09-25 01:28:16',
-                'modified' => '2022-09-25 01:28:16',
+                'title' => 'Lorem ipsum dolor sit amet',
+                'link' => 'Lorem ipsum dolor sit amet',
+                'created' => '2022-09-25 19:49:06',
+                'modified' => '2022-09-25 19:49:06',
             ],
         ];
         parent::init();

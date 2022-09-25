@@ -33,8 +33,8 @@ use App\View\AppView;
                     <td><?= $film->has('episode') ? $this->Html->link($film->episode->id, ['controller' => 'Episodes', 'action' => 'view', $film->episode->id]) : '' ?></td>
                     <td><?= $film->has('user') ? $this->Html->link($film->user->name, ['controller' => 'Users', 'action' => 'view', $film->user->id]) : '' ?></td>
                     <td><?= $film->has('submitter') ? $this->Html->link($film->submitter->name, ['controller' => 'People', 'action' => 'view', $film->submitter->id]) : '' ?></td>
-                    <td><?= $this->Number->format($film->title) ?></td>
-                    <td><?= $this->Number->format($film->link) ?></td>
+                    <td><?= h($film->title) ?></td>
+                    <td><?= h($film->link) ?></td>
                     <td><?= h($film->created) ?></td>
                     <td><?= h($film->modified) ?></td>
                     <td class="actions">

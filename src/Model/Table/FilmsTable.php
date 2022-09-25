@@ -114,13 +114,13 @@ class FilmsTable extends Table
             ->notEmptyString('submitted_by');
 
         $validator
-            ->nonNegativeInteger('title')
-            ->requirePresence('title', 'create')
+            ->scalar('title')
+            ->maxLength('title', 100)
             ->notEmptyString('title');
 
         $validator
-            ->nonNegativeInteger('link')
-            ->requirePresence('link', 'create')
+            ->scalar('link')
+            ->maxLength('link', 200)
             ->notEmptyString('link');
 
         return $validator;

@@ -31,8 +31,8 @@ class FilmPeopleFixture extends TestFixture
                 'film_id' => 1,
                 'user_id' => 1,
                 'type' => 'Lorem ipsum dolor sit amet',
-                'created' => '2022-09-25 01:28:16',
-                'modified' => '2022-09-25 01:28:16',
+                'created' => '2022-09-25 19:49:06',
+                'modified' => '2022-09-25 19:49:06',
             ],
         ];
         parent::init();

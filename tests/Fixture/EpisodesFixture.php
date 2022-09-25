@@ -21,8 +21,8 @@ class EpisodesFixture extends TestFixture
             [
                 'id' => 1,
                 'episode_number' => '',
-                'created' => '2022-09-25 01:28:15',
-                'modified' => '2022-09-25 01:28:15',
+                'created' => '2022-09-25 19:49:05',
+                'modified' => '2022-09-25 19:49:05',
             ],
         ];
         parent::init();

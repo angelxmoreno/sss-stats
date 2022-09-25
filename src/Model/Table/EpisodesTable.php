@@ -58,7 +58,6 @@ class EpisodesTable extends Table
         $this->hasMany('EpisodeAttributeValues', [
             'foreignKey' => 'episode_id',
         ]);
-
         $this->hasMany('EpisodeSnacks', [
             'foreignKey' => 'episode_id',
         ]);

@@ -13,8 +13,8 @@ use Cake\ORM\Entity;
  * @property int $episode_id
  * @property int $user_id
  * @property int $submitted_by
- * @property int $title
- * @property int $link
+ * @property string $title
+ * @property string $link
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
  *

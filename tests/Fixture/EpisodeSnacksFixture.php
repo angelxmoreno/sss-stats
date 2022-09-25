@@ -23,8 +23,8 @@ class EpisodeSnacksFixture extends TestFixture
                 'episode_id' => 1,
                 'snack_id' => 1,
                 'user_id' => 1,
-                'created' => '2022-09-25 01:28:15',
-                'modified' => '2022-09-25 01:28:15',
+                'created' => '2022-09-25 19:49:05',
+                'modified' => '2022-09-25 19:49:05',
             ],
         ];
         parent::init();

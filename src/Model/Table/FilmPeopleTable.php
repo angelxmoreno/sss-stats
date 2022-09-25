@@ -101,7 +101,8 @@ class FilmPeopleTable extends Table
         $validator
             ->scalar('type')
             ->inList('type', self::FILM_PEOPLE_TYPES)
-            ->allowEmptyString('type');
+            ->maxLength('type', 100)
+            ->notEmptyString('type');
 
         return $validator;
     }

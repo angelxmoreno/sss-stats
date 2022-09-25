@@ -66,7 +66,7 @@ class SnacksTable extends Table
     {
         $validator
             ->scalar('name')
-            ->maxLength('name', 50)
+            ->maxLength('name', 200)
             ->notEmptyString('name')
             ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 

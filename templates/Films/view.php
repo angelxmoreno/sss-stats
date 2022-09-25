@@ -35,16 +35,16 @@ use App\View\AppView;
                     <td><?= $film->has('submitter') ? $this->Html->link($film->submitter->name, ['controller' => 'People', 'action' => 'view', $film->submitter->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($film->id) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Title') ?></th>
-                    <td><?= $this->Number->format($film->title) ?></td>
+                    <td><?= h($film->title) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Link') ?></th>
-                    <td><?= $this->Number->format($film->link) ?></td>
+                    <td><?= h($film->link) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($film->id) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>

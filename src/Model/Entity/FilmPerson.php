@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property int $person_id
  * @property int $film_id
  * @property int $user_id
- * @property string|null $type
+ * @property string $type
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
  *
