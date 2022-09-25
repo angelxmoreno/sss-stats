@@ -17,7 +17,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Controller\Component\IdentityComponent;
+use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Controller\Controller;
+use Exception;
 
 /**
  * Application Controller
@@ -26,6 +29,9 @@ use Cake\Controller\Controller;
  * will inherit them.
  *
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
+ *
+ * @property AuthenticationComponent $Authentication
+ * @property IdentityComponent $Identity
  */
 class AppController extends Controller
 {
@@ -37,6 +43,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('FormProtection');`
      *
      * @return void
+     * @throws Exception
      */
     public function initialize(): void
     {
@@ -44,11 +51,14 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Identity');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+        $this->Authentication->allowUnauthenticated(['index', 'view']);
     }
 }

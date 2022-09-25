@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use App\Model\Helper\UserEntityTrait;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
@@ -24,6 +25,8 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
+    use UserEntityTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
