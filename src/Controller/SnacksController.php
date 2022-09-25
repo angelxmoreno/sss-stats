@@ -39,7 +39,7 @@ class SnacksController extends AppController
     public function view(?string $id = null)
     {
         $snack = $this->Snacks->get($id, [
-            'contain' => ['EpisodeSnacks'],
+            'contain' => ['Episodes'],
         ]);
 
         $this->set(compact('snack'));
@@ -62,7 +62,8 @@ class SnacksController extends AppController
             }
             $this->Flash->error(__('The snack could not be saved. Please, try again.'));
         }
-        $this->set(compact('snack'));
+        $episodes = $this->Snacks->Episodes->find('list', ['limit' => 200])->all();
+        $this->set(compact('snack', 'episodes'));
     }
 
     /**
@@ -75,7 +76,7 @@ class SnacksController extends AppController
     public function edit(?string $id = null)
     {
         $snack = $this->Snacks->get($id, [
-            'contain' => [],
+            'contain' => ['Episodes'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $snack = $this->Snacks->patchEntity($snack, $this->request->getData());
@@ -86,7 +87,8 @@ class SnacksController extends AppController
             }
             $this->Flash->error(__('The snack could not be saved. Please, try again.'));
         }
-        $this->set(compact('snack'));
+        $episodes = $this->Snacks->Episodes->find('list', ['limit' => 200])->all();
+        $this->set(compact('snack', 'episodes'));
     }
 
     /**

@@ -2,37 +2,34 @@
 /**
  * @var AppView $this
  * @var FilmPerson $filmPerson
- * @var CollectionInterface|string[] $people
- * @var CollectionInterface|string[] $films
- * @var CollectionInterface|string[] $users
+ * @var Person[]|CollectionInterface $people
+ * @var Film[]|CollectionInterface $films
+ * @var User[]|CollectionInterface $users
  */
 
+use App\Model\Entity\Film;
 use App\Model\Entity\FilmPerson;
+use App\Model\Entity\Person;
+use App\Model\Entity\User;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
+$this->extend('BakeTheme.Common/add');
+$this->assign('title', 'Add a Film Person');
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Film People'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="filmPeople form content">
-            <?= $this->Form->create($filmPerson) ?>
-            <fieldset>
-                <legend><?= __('Add Film Person') ?></legend>
-                <?php
-                echo $this->Form->control('person_id', ['options' => $people]);
-                echo $this->Form->control('film_id', ['options' => $films]);
-                echo $this->Form->control('user_id', ['options' => $users]);
-                echo $this->Form->control('type');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+
+<div class="filmPeople form content">
+    <?= $this->Form->create($filmPerson) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->control('person_id', ['options' => $people]);
+        echo $this->Form->control('film_id', ['options' => $films]);
+        echo $this->Form->control('user_id', ['options' => $users]);
+        echo $this->Form->control('type');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Add'), [
+        'class' => 'btn btn-outline-success btn-lg',
+    ]) ?>
+    <?= $this->Form->end() ?>
 </div>

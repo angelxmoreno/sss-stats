@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Model\Table\FilmPeopleTable;
 use App\Utility\FakerBuilder;
 use Migrations\AbstractSeed;
 
@@ -12,6 +13,7 @@ class AlphaSeederSeed extends AbstractSeed
 
     protected const NUM_USERS = 20;
     protected const NUM_SNACKS = 60;
+    protected const MAX_EPISODE_SNACKS = 4;
     protected const NUM_PEOPLE = 60;
     protected const NUM_FILMS = 120;
     protected const NUM_FILM_PEOPLE = 240;
@@ -181,22 +183,24 @@ class AlphaSeederSeed extends AbstractSeed
         $data = [];
         $users = FakerBuilder::getInstance()->randomElements($rows['users'], ceil(count($rows['users']) * .25));
         $id = 1;
-        foreach ($users as $user) {
-            $numEntries = FakerBuilder::getInstance()->numberBetween(1, 3);
-            for ($i = 1; $i <= $numEntries; $i++) {
-                $created = FakerBuilder::getInstance()->dateTimeBetween('-1 month', 'now');
-                $episode = FakerBuilder::getInstance()->randomElement($rows['episodes']);
-                $snack = FakerBuilder::getInstance()->randomElement($rows['snacks']);
-                $data[] = [
-                    'id' => $id++,
-                    'user_id' => $user['id'],
-                    'episode_id' => $episode['id'],
-                    'snack_id' => $snack['id'],
-                    'created' => $created->format('y-m-d H:i:s'),
-                    'modified' => $created->format('y-m-d H:i:s'),
-                ];
+        foreach ($rows['episodes'] as $episode) {
+            $doesHaveSnacks = FakerBuilder::getInstance()->boolean(85);
+            if ($doesHaveSnacks) {
+                $numEntries = FakerBuilder::getInstance()->numberBetween(1, self::MAX_EPISODE_SNACKS);
+                for ($i = 0; $i < $numEntries; $i++) {
+                    $created = FakerBuilder::getInstance()->dateTimeBetween('-1 month', 'now');
+                    $user = FakerBuilder::getInstance()->randomElement($rows['users']);
+                    $snack = FakerBuilder::getInstance()->randomElement($rows['snacks']);
+                    $data[] = [
+                        'id' => $id++,
+                        'user_id' => $user['id'],
+                        'episode_id' => $episode['id'],
+                        'snack_id' => $snack['id'],
+                        'created' => $created->format('y-m-d H:i:s'),
+                        'modified' => $created->format('y-m-d H:i:s'),
+                    ];
+                }
             }
-
         }
         return $data;
     }
@@ -226,7 +230,7 @@ class AlphaSeederSeed extends AbstractSeed
                 'user_id' => FakerBuilder::getInstance()->randomElement($rows['users'])['id'],
                 'episode_id' => FakerBuilder::getInstance()->randomElement($rows['episodes'])['id'],
                 'submitted_by' => FakerBuilder::getInstance()->randomElement($rows['people'])['id'],
-                'title' => FakerBuilder::getInstance()->name(). ' Dies',
+                'title' => FakerBuilder::getInstance()->name() . ' Dies',
                 'link' => FakerBuilder::getInstance()->url(),
                 'created' => '2022-09-25 01:28:17',
                 'modified' => '2022-09-25 01:28:17',
@@ -245,6 +249,7 @@ class AlphaSeederSeed extends AbstractSeed
                 'user_id' => FakerBuilder::getInstance()->randomElement($rows['users'])['id'],
                 'film_id' => FakerBuilder::getInstance()->randomElement($rows['films'])['id'],
                 'person_id' => FakerBuilder::getInstance()->randomElement($rows['people'])['id'],
+                'type' => FakerBuilder::getInstance()->randomElement(FilmPeopleTable::FILM_PEOPLE_TYPES),
                 'created' => '2022-09-25 01:28:17',
                 'modified' => '2022-09-25 01:28:17',
             ];

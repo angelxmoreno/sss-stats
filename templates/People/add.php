@@ -2,33 +2,30 @@
 /**
  * @var AppView $this
  * @var Person $person
- * @var CollectionInterface|string[] $users
+ * @var User[]|CollectionInterface $users
+ * @var FilmPerson[]|CollectionInterface $filmPeople
  */
 
+use App\Model\Entity\FilmPerson;
 use App\Model\Entity\Person;
+use App\Model\Entity\User;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
+$this->extend('BakeTheme.Common/add');
+$this->assign('title', 'Add a Person');
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List People'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="people form content">
-            <?= $this->Form->create($person) ?>
-            <fieldset>
-                <legend><?= __('Add Person') ?></legend>
-                <?php
-                echo $this->Form->control('user_id', ['options' => $users]);
-                echo $this->Form->control('name');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+
+<div class="people form content">
+    <?= $this->Form->create($person) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->control('user_id', ['options' => $users]);
+        echo $this->Form->control('name');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Add'), [
+        'class' => 'btn btn-outline-success btn-lg',
+    ]) ?>
+    <?= $this->Form->end() ?>
 </div>

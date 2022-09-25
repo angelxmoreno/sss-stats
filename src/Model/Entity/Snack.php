@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property FrozenTime|null $modified
  *
  * @property EpisodeSnack[] $episode_snacks
+ * @property Episode[] $episodes
  */
 class Snack extends Entity
 {
@@ -36,5 +37,6 @@ class Snack extends Entity
         'created' => true,
         'modified' => true,
         'episode_snacks' => true,
+        'episodes' => true,
     ];
 }

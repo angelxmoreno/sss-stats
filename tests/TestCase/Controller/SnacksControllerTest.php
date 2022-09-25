@@ -24,6 +24,7 @@ class SnacksControllerTest extends TestCase
     protected $fixtures = [
         'app.Snacks',
         'app.EpisodeSnacks',
+        'app.Episodes',
     ];
 
     /**

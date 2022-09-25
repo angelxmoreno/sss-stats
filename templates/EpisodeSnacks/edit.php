@@ -2,41 +2,34 @@
 /**
  * @var AppView $this
  * @var EpisodeSnack $episodeSnack
- * @var string[]|CollectionInterface $episodes
- * @var string[]|CollectionInterface $snacks
- * @var string[]|CollectionInterface $users
+ * @var Episode[]|CollectionInterface $episodes
+ * @var Snack[]|CollectionInterface $snacks
+ * @var User[]|CollectionInterface $users
  */
 
+use App\Model\Entity\Episode;
 use App\Model\Entity\EpisodeSnack;
+use App\Model\Entity\Snack;
+use App\Model\Entity\User;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
+$this->extend('BakeTheme.Common/edit');
+$this->assign('title', 'Edit a Episode Snack');
+$this->assign('identifier', $episodeSnack->id)
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $episodeSnack->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $episodeSnack->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Episode Snacks'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="episodeSnacks form content">
-            <?= $this->Form->create($episodeSnack) ?>
-            <fieldset>
-                <legend><?= __('Edit Episode Snack') ?></legend>
-                <?php
-                echo $this->Form->control('episode_id', ['options' => $episodes]);
-                echo $this->Form->control('snack_id', ['options' => $snacks]);
-                echo $this->Form->control('user_id', ['options' => $users]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+
+<div class="episodeSnacks form content">
+    <?= $this->Form->create($episodeSnack) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->control('episode_id', ['options' => $episodes]);
+        echo $this->Form->control('snack_id', ['options' => $snacks]);
+        echo $this->Form->control('user_id', ['options' => $users]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Edit'), [
+        'class' => 'btn btn-outline-success btn-lg',
+    ]) ?>
+    <?= $this->Form->end() ?>
 </div>

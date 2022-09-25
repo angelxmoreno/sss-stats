@@ -2,38 +2,31 @@
 /**
  * @var AppView $this
  * @var Person $person
- * @var string[]|CollectionInterface $users
+ * @var User[]|CollectionInterface $users
+ * @var FilmPerson[]|CollectionInterface $filmPeople
  */
 
+use App\Model\Entity\FilmPerson;
 use App\Model\Entity\Person;
+use App\Model\Entity\User;
 use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
+$this->extend('BakeTheme.Common/edit');
+$this->assign('title', 'Edit a Person');
+$this->assign('identifier', $person->id)
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $person->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $person->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List People'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="people form content">
-            <?= $this->Form->create($person) ?>
-            <fieldset>
-                <legend><?= __('Edit Person') ?></legend>
-                <?php
-                echo $this->Form->control('user_id', ['options' => $users]);
-                echo $this->Form->control('name');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+
+<div class="people form content">
+    <?= $this->Form->create($person) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->control('user_id', ['options' => $users]);
+        echo $this->Form->control('name');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Edit'), [
+        'class' => 'btn btn-outline-success btn-lg',
+    ]) ?>
+    <?= $this->Form->end() ?>
 </div>

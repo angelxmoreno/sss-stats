@@ -54,6 +54,12 @@ class SnacksTable extends Table
         $this->hasMany('EpisodeSnacks', [
             'foreignKey' => 'snack_id',
         ]);
+
+        $this->belongsToMany('Episodes', [
+            'foreignKey' => 'snack_id',
+            'targetForeignKey' => 'episode_id',
+            'through' => 'EpisodeSnacks',
+        ]);
     }
 
     /**

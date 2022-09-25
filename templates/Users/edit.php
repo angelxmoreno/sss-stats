@@ -2,37 +2,38 @@
 /**
  * @var AppView $this
  * @var User $user
+ * @var EpisodeAttributeValue[]|CollectionInterface $episodeAttributeValues
+ * @var EpisodeSnack[]|CollectionInterface $episodeSnacks
+ * @var FilmPerson[]|CollectionInterface $filmPeople
+ * @var Film[]|CollectionInterface $films
+ * @var Person[]|CollectionInterface $people
  */
 
+use App\Model\Entity\EpisodeAttributeValue;
+use App\Model\Entity\EpisodeSnack;
+use App\Model\Entity\Film;
+use App\Model\Entity\FilmPerson;
+use App\Model\Entity\Person;
 use App\Model\Entity\User;
 use App\View\AppView;
+use Cake\Collection\CollectionInterface;
 
+$this->extend('BakeTheme.Common/edit');
+$this->assign('title', 'Edit a User');
+$this->assign('identifier', $user->id)
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Edit User') ?></legend>
-                <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('email');
-                echo $this->Form->control('password');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+
+<div class="users form content">
+    <?= $this->Form->create($user) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->control('name');
+        echo $this->Form->control('email');
+        echo $this->Form->control('password');
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Edit'), [
+        'class' => 'btn btn-outline-success btn-lg',
+    ]) ?>
+    <?= $this->Form->end() ?>
 </div>
