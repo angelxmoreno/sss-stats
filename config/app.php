@@ -5,6 +5,7 @@ use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
+use LeagueAuth\IdentityBuilder\GoogleIdentityBuilder;
 
 return [
     /*
@@ -422,5 +423,19 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+    ],
+    'LeagueAuth' => [
+        'providers' => [
+            'google' => [
+                'className' => League\OAuth2\Client\Provider\Google::class,
+                'identityBuilder' => GoogleIdentityBuilder::class,
+                'params' => [
+                    'clientId' => env('GOOGLE_CLIENT_ID'),
+                    'clientSecret' => env('GOOGLE_CLIENT_SECRET'),
+                    'redirectUri' => 'http://localhost:8080/auth/google',
+                    'accessType' => 'offline',
+                ],
+            ],
+        ],
     ],
 ];

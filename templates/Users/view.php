@@ -18,6 +18,14 @@ $this->assign('identifier', $user->id)
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
+                <th scope="row"><?= __('Google Auth Provider') ?></th>
+                <td><?= $user->has('google_auth_provider') ?
+                        $this->Html->link($user->google_auth_provider->display_name
+                            , ['controller' => 'AuthProviders', 'action' => 'view', $user
+                                ->google_auth_provider->id]) : '' ?>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><?= __('Name') ?></th>
                 <td><?= h($user->name) ?></td>
             </tr>
@@ -38,6 +46,10 @@ $this->assign('identifier', $user->id)
                 <td><?= h($user->modified) ?></td>
             </tr>
         </table>
+    </div>
+    <div class="text">
+        <h4><?= __('Picture Url') ?></h4>
+        <?= $this->Text->autoParagraph(h($user->picture_url)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Episode Attribute Values') ?></h4>

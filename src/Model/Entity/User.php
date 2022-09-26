@@ -6,17 +6,21 @@ namespace App\Model\Entity;
 use App\Model\Helper\UserEntityTrait;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
+use LeagueAuth\Model\Entity\AuthProvider;
 
 /**
  * User Entity
  *
  * @property int $id
+ * @property int|null $google_auth_provider_id
  * @property string $name
  * @property string $email
  * @property string|null $password
+ * @property string|null $picture_url
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
  *
+ * @property AuthProvider $google_auth_provider
  * @property EpisodeAttributeValue[] $episode_attribute_values
  * @property EpisodeSnack[] $episode_snacks
  * @property FilmPerson[] $film_people
@@ -37,11 +41,14 @@ class User extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'google_auth_provider_id' => true,
         'name' => true,
         'email' => true,
         'password' => true,
+        'picture_url' => true,
         'created' => true,
         'modified' => true,
+        'google_auth_provider' => true,
         'episode_attribute_values' => true,
         'episode_snacks' => true,
         'film_people' => true,
