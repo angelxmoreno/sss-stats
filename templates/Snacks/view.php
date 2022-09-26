@@ -8,7 +8,7 @@ use App\Model\Entity\Snack;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Snack');
+$this->assign('title', 'Snack');
 $this->assign('identifier', $snack->id)
 ?>
 

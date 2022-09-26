@@ -9,7 +9,7 @@ use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('BakeTheme.Common/index');
-$this->assign('title', 'Manage Episode Snacks')
+$this->assign('title', 'Episode Snacks')
 ?>
 
 <table class="table table-striped">
@@ -29,7 +29,7 @@ $this->assign('title', 'Manage Episode Snacks')
         <tr>
             <td><?= $this->Number->format($episodeSnack->id) ?></td>
             <td><?= $episodeSnack->has('episode') ? $this->Html->link($episodeSnack
-                    ->episode->id, ['controller' =>
+                    ->episode->name, ['controller' =>
                     'Episodes', 'action' => 'view', $episodeSnack->episode
                     ->id]) : '' ?>
             </td>

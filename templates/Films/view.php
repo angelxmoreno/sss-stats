@@ -8,7 +8,7 @@ use App\Model\Entity\Film;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Film');
+$this->assign('title', 'Film');
 $this->assign('identifier', $film->id)
 ?>
 
@@ -20,7 +20,7 @@ $this->assign('identifier', $film->id)
             <tr>
                 <th scope="row"><?= __('Episode') ?></th>
                 <td><?= $film->has('episode') ?
-                        $this->Html->link($film->episode->id
+                        $this->Html->link($film->episode->name
                             , ['controller' => 'Episodes', 'action' => 'view', $film
                                 ->episode->id]) : '' ?>
                 </td>

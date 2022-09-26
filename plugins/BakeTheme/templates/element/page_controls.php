@@ -13,6 +13,6 @@ use App\View\AppView;
     <?= $mode !== 'list' ? $this->Html->link(__('List'), ['action' => 'index'], ['title' => __('List'), 'class' => 'btn btn-outline-info']) : '' ?>
     <?= $mode !== 'create' && $mode !== 'list' && $mode !== 'view' ? $this->Html->link(__('View'), ['action' => 'view', $identifier], ['title' => __('View'), 'class' => 'btn btn-outline-success']) : '' ?>
     <?= $mode !== 'create' && $mode !== 'list' && $mode !== 'edit' ? $this->Html->link(__('Edit'), ['action' => 'edit', $identifier], ['title' => __('Edit'), 'class' => 'btn btn-outline-warning']) : '' ?>
-    <?= $mode !== 'create' && $mode !== 'list' ? $this->Form->postLink(__('Delete'), ['action' => 'delete', $identifier], ['confirm' => __('Are you sure you want to delete # {0}?', $identifier), 'title' => __('Delete'), 'class' => 'btn btn-outline-danger']) : '' ?>
+    <?= false && $mode !== 'create' && $mode !== 'list' ? $this->Form->postLink(__('Delete'), ['action' => 'delete', $identifier], ['confirm' => __('Are you sure you want to delete # {0}?', $identifier), 'title' => __('Delete'), 'class' => 'btn btn-outline-danger']) : '' ?>
 </div>
 

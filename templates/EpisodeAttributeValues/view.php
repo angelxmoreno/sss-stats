@@ -8,7 +8,7 @@ use App\Model\Entity\EpisodeAttributeValue;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Episode Attribute Value');
+$this->assign('title', 'Episode Attribute Value');
 $this->assign('identifier', $episodeAttributeValue->id)
 ?>
 
@@ -20,7 +20,7 @@ $this->assign('identifier', $episodeAttributeValue->id)
             <tr>
                 <th scope="row"><?= __('Episode') ?></th>
                 <td><?= $episodeAttributeValue->has('episode') ?
-                        $this->Html->link($episodeAttributeValue->episode->id
+                        $this->Html->link($episodeAttributeValue->episode->name
                             , ['controller' => 'Episodes', 'action' => 'view', $episodeAttributeValue
                                 ->episode->id]) : '' ?>
                 </td>

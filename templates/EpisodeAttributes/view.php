@@ -8,7 +8,7 @@ use App\Model\Entity\EpisodeAttribute;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Episode Attribute');
+$this->assign('title', 'Episode Attribute');
 $this->assign('identifier', $episodeAttribute->id)
 ?>
 

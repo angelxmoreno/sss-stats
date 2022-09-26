@@ -28,7 +28,6 @@ use Cake\Core\Configure;
                 <?= $this->NavBar->linkItem('Films', ['controller' => 'Films']) ?>
                 <?= $this->NavBar->linkItem('About', ['controller' => 'Pages', 'action' => 'display', 'about']) ?>
                 <?= $this->NavBar->linkItem('Contact', ['controller' => 'Pages', 'action' => 'display', 'contact']) ?>
-
             </ul>
             <ul class="navbar-nav ms-auto"></ul>
             <?php if ($this->Identity->isLoggedIn()): ?>

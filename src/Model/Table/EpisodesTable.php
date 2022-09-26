@@ -50,7 +50,7 @@ class EpisodesTable extends Table
         parent::initialize($config);
 
         $this->setTable('episodes');
-        $this->setDisplayField('id');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');

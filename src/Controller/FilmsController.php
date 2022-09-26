@@ -17,6 +17,14 @@ use Cake\Http\Response;
  */
 class FilmsController extends AppController
 {
+    public $paginate = [
+        'limit' => 60,
+        'order' => [
+            'Episodes.episode_number' => 'desc',
+        ],
+        'contain' => ['Episodes', 'Users', 'Submitter'],
+    ];
+
     /**
      * Index method
      *
@@ -24,9 +32,6 @@ class FilmsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Episodes', 'Users', 'Submitter'],
-        ];
         $films = $this->paginate($this->Films);
 
         $this->set(compact('films'));

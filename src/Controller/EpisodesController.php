@@ -17,6 +17,13 @@ use Cake\Http\Response;
  */
 class EpisodesController extends AppController
 {
+    public $paginate = [
+        'limit' => 100,
+        'order' => [
+            'Episodes.episode_number' => 'desc',
+        ],
+    ];
+
     /**
      * Index method
      *

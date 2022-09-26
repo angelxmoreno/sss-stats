@@ -8,7 +8,7 @@ use App\Model\Entity\EpisodeSnack;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Episode Snack');
+$this->assign('title', 'Episode Snack');
 $this->assign('identifier', $episodeSnack->id)
 ?>
 
@@ -20,7 +20,7 @@ $this->assign('identifier', $episodeSnack->id)
             <tr>
                 <th scope="row"><?= __('Episode') ?></th>
                 <td><?= $episodeSnack->has('episode') ?
-                        $this->Html->link($episodeSnack->episode->id
+                        $this->Html->link($episodeSnack->episode->name
                             , ['controller' => 'Episodes', 'action' => 'view', $episodeSnack
                                 ->episode->id]) : '' ?>
                 </td>

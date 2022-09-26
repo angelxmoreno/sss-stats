@@ -8,7 +8,7 @@ use App\Model\Entity\FilmPerson;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Film Person');
+$this->assign('title', 'Film Person');
 $this->assign('identifier', $filmPerson->id)
 ?>
 

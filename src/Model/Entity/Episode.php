@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  * Episode Entity
  *
  * @property int $id
+ * @property int $name
  * @property string $episode_number
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
@@ -39,4 +40,14 @@ class Episode extends Entity
         'films' => true,
         'snacks' => true,
     ];
+
+    protected $_virtual = ['name'];
+
+    protected function _getName(): ?string
+    {
+        return is_null($this->episode_number)
+            ? null
+            : '#' . $this->episode_number;
+    }
+
 }

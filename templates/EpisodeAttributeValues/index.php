@@ -9,7 +9,7 @@ use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('BakeTheme.Common/index');
-$this->assign('title', 'Manage Episode Attribute Values')
+$this->assign('title', 'Episode Attribute Values')
 ?>
 
 <table class="table table-striped">
@@ -30,7 +30,7 @@ $this->assign('title', 'Manage Episode Attribute Values')
         <tr>
             <td><?= $this->Number->format($episodeAttributeValue->id) ?></td>
             <td><?= $episodeAttributeValue->has('episode') ? $this->Html->link($episodeAttributeValue
-                    ->episode->id, ['controller' =>
+                    ->episode->name, ['controller' =>
                     'Episodes', 'action' => 'view', $episodeAttributeValue->episode
                     ->id]) : '' ?>
             </td>

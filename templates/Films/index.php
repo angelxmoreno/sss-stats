@@ -9,7 +9,7 @@ use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('BakeTheme.Common/index');
-$this->assign('title', 'Manage Films')
+$this->assign('title', 'Films')
 ?>
 
 <table class="table table-striped">
@@ -31,7 +31,7 @@ $this->assign('title', 'Manage Films')
         <tr>
             <td><?= $this->Number->format($film->id) ?></td>
             <td><?= $film->has('episode') ? $this->Html->link($film
-                    ->episode->id, ['controller' =>
+                    ->episode->name, ['controller' =>
                     'Episodes', 'action' => 'view', $film->episode
                     ->id]) : '' ?>
             </td>

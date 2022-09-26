@@ -9,7 +9,7 @@ use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('BakeTheme.Common/index');
-$this->assign('title', 'Manage Users')
+$this->assign('title', 'Users')
 ?>
 
 <table class="table table-striped">

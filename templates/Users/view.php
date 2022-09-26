@@ -8,7 +8,7 @@ use App\Model\Entity\User;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View User');
+$this->assign('title', 'User');
 $this->assign('identifier', $user->id)
 ?>
 

@@ -8,13 +8,13 @@ use App\Model\Entity\Episode;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'View Episode');
+$this->assign('title', 'Episode');
 $this->assign('identifier', $episode->id)
 ?>
 
 
 <div class="episodes view large-9 medium-8 columns content">
-    <h4><?= h($episode->id) ?></h4>
+    <h4><?= h($episode->name) ?></h4>
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>

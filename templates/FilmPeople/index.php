@@ -9,7 +9,7 @@ use App\View\AppView;
 use Cake\Collection\CollectionInterface;
 
 $this->extend('BakeTheme.Common/index');
-$this->assign('title', 'Manage Film People')
+$this->assign('title', 'Film People')
 ?>
 
 <table class="table table-striped">
