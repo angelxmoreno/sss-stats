@@ -24,6 +24,9 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['GoogleAuthProviders'],
+        ];
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -39,7 +42,7 @@ class UsersController extends AppController
     public function view(?string $id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['EpisodeAttributeValues', 'EpisodeSnacks', 'FilmPeople', 'Films', 'People'],
+            'contain' => ['GoogleAuthProviders', 'EpisodeAttributeValues', 'EpisodeSnacks', 'FilmPeople', 'Films', 'People'],
         ]);
 
         $this->set(compact('user'));
@@ -62,7 +65,8 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+        $googleAuthProviders = $this->Users->GoogleAuthProviders->find('list', ['limit' => 200])->all();
+        $this->set(compact('user', 'googleAuthProviders'));
     }
 
     /**
@@ -86,7 +90,8 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+        $googleAuthProviders = $this->Users->GoogleAuthProviders->find('list', ['limit' => 200])->all();
+        $this->set(compact('user', 'googleAuthProviders'));
     }
 
     /**

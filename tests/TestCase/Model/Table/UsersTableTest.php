@@ -25,6 +25,7 @@ class UsersTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Users',
+        'app.GoogleAuthProviders',
         'app.EpisodeAttributeValues',
         'app.EpisodeSnacks',
         'app.FilmPeople',

@@ -6,13 +6,16 @@ namespace App\Controller;
 use App\Model\Table\UsersTable;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
+use Cake\Utility\Security;
+use LeagueAuth\Core\LeagueAuthUserProcessorInterface;
+use LeagueAuth\Model\Entity\AuthProvider;
 
 /**
  * Auth Controller
  *
  * @property UsersTable $Users
  */
-class AuthController extends AppController
+class AuthController extends AppController implements LeagueAuthUserProcessorInterface
 {
     public const URL_LOGIN = [
         'prefix' => false,
@@ -35,12 +38,13 @@ class AuthController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        $this->loadComponent('LeagueAuth.LeagueAuth');
     }
 
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['logout', 'login', 'register']);
+        $this->Authentication->addUnauthenticatedActions([$this->getRequest()->getParam('action')]);
     }
 
     /**
@@ -93,4 +97,38 @@ class AuthController extends AppController
         }
         $this->set(compact('user'));
     }
+
+    public function processAuthProvider(AuthProvider $authProvider): Response
+    {
+        $user = $this->Users->find()->where(['email' => $authProvider->email])->first();
+
+        if ($user && !$authProvider->email_verified) {
+            $this->Flash->error(sprintf(
+                'A user with that email address already exists. Please verify your email address with %s',
+                $authProvider->provider
+            ));
+            return $this->redirect(AuthController::URL_LOGIN);
+        }
+
+        if (!$user) {
+            $user = $this->Users->newEntity([
+                'name' => $authProvider->name,
+                'email' => $authProvider->email,
+                'password' => $authProvider->display_name . Security::getSalt(),
+                'picture_url' => $authProvider->picture_url,
+            ]);
+        }
+
+        $user->google_auth_provider_id = $authProvider->id;
+        $this->Users->saveOrFail($user);
+        $this->Authentication->setIdentity($user);
+        $this->Flash->success(sprintf(
+            'You have logged in with %s',
+            $authProvider->provider
+        ));
+        $redirect = $this->request->getQuery('redirect', AuthController::URL_AFTER_LOGIN);
+        return $this->redirect($redirect);
+    }
+
+
 }

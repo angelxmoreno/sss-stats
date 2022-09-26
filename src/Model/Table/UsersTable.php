@@ -6,15 +6,18 @@ namespace App\Model\Table;
 use App\Model\Entity\User;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use LeagueAuth\Model\Table\AuthProvidersTable;
 
 /**
  * Users Model
  *
+ * @property AuthProvidersTable&BelongsTo $GoogleAuthProviders
  * @property EpisodeAttributeValuesTable&HasMany $EpisodeAttributeValues
  * @property EpisodeSnacksTable&HasMany $EpisodeSnacks
  * @property FilmPeopleTable&HasMany $FilmPeople
@@ -55,6 +58,11 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('GoogleAuthProviders')
+            ->setClassName(AuthProvidersTable::class)
+            ->setForeignKey('google_auth_provider_id')
+            ->setBindingKey('id');
+
         $this->hasMany('EpisodeAttributeValues', [
             'foreignKey' => 'user_id',
         ]);
@@ -81,6 +89,11 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->nonNegativeInteger('google_auth_provider_id')
+            ->allowEmptyString('google_auth_provider_id')
+            ->add('google_auth_provider_id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 100)
             ->notEmptyString('name');
@@ -95,6 +108,10 @@ class UsersTable extends Table
             ->maxLength('password', 100)
             ->allowEmptyString('password');
 
+        $validator
+            ->scalar('picture_url')
+            ->allowEmptyString('picture_url');
+
         return $validator;
     }
 
@@ -108,6 +125,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn('google_auth_provider_id', 'GoogleAuthProviders'), ['errorField' => 'google_auth_provider_id']);
 
         return $rules;
     }
