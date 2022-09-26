@@ -3,10 +3,8 @@
  * @var AppView $this
  */
 
-use App\Model\Entity\Site;
 use App\View\AppView;
 use Cake\Core\Configure;
-use Manage\Model\Table\OrdersTable;
 
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -24,74 +22,22 @@ use Manage\Model\Table\OrdersTable;
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-        <!--            --><? //= $this->cell('NavbarCategories', [], ['cache' => !Configure::read('debug')]) ?>
-        <!--            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">-->
-        <!--                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>-->
-        <!--                -->
-        <!--                <li class="nav-item dropdown">-->
-        <!--                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"-->
-        <!--                       aria-expanded="false">-->
-        <!--                        Account-->
-        <!--                    </a>-->
-        <!--                    <ul class="dropdown-menu">-->
-        <!--                        --><? // if ($this->Identity->isLoggedIn()): ?>
-        <!--                            --><? //= $this->NavBar->dropDownItem('Profile', ['controller' => 'Users', 'action' => 'view']) ?>
-        <!--                            --><? //= $this->NavBar->dropDownItem('Orders', ['controller' => 'Orders']) ?>
-        <!--                            --><? //= $this->NavBar->dropDownItem('Log Out', ['controller' => 'Auth', 'action' => 'logout']) ?>
-        <!--                        --><? // endif; ?>
-        <!--                        --><? // if (!$this->Identity->isLoggedIn()): ?>
-        <!--                            --><? //= $this->NavBar->dropDownItem('Log In', ['controller' => 'Auth', 'action' => 'login']) ?>
-        <!--                        --><? // endif; ?>
-        <!--                    </ul>-->
-        <!--                </li>-->
-        <!--                --><? // if ($this->Identity->isLoggedIn() && $this->Identity->get('is_manager')): ?>
-        <!--                    <li class="nav-item dropdown">-->
-        <!--                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"-->
-        <!--                           aria-expanded="false">-->
-        <!--                            Manage-->
-        <!--                        </a>-->
-        <!--                        <ul class="dropdown-menu">-->
-        <!--                            <li><h6 class="dropdown-header">Orders</h6></li>-->
-        <!--                            --><? // foreach (array_keys(OrdersTable::FILTERS) as $filterName): ?>
-        <!--                                --><? //= $this->NavBar->dropDownItem(ucfirst($filterName) . ' Orders', [
-        //                                    'prefix' => false,
-        //                                    'plugin' => 'Manage',
-        //                                    'controller' => 'Orders',
-        //                                    'action' => 'index',
-        //                                    $filterName,
-        //                                ]) ?>
-        <!--                            --><? // endforeach; ?>
-        <!--                            --><? // foreach ([
-        //                                            'Sites',
-        //                                            'Categories',
-        //                                            'Products',
-        //                                            'Users',
-        //                                        ] as $controller): ?>
-        <!--                                <li>-->
-        <!--                                    <hr class="dropdown-divider">-->
-        <!--                                </li>-->
-        <!--                                <li><h6 class="dropdown-header">--><? //= $controller ?><!--</h6></li>-->
-        <!--                                --><? //= $this->NavBar->dropDownItem('List ' . $controller, ['plugin' => 'Manage', 'controller' => $controller, 'action' => 'index']) ?>
-        <!--                                --><? //= $this->NavBar->dropDownItem('Create ' . $controller, ['plugin' => 'Manage', 'controller' => $controller, 'action' => 'add']) ?>
-        <!--                            --><? // endforeach; ?>
-        <!---->
-        <!--                            <li><h6 class="dropdown-header">Amazon Data</h6></li>-->
-        <!--                            --><? //= $this->NavBar->dropDownItem('Categories', [
-        //                                'prefix' => false,
-        //                                'plugin' => 'Manage',
-        //                                'controller' => 'AmazonCategories',
-        //                                'action' => 'index',
-        //                            ]) ?>
-        <!---->
-        <!--                        </ul>-->
-        <!--                    </li>-->
-        <!--                --><? // endif; ?>
-        <!--            </ul>-->
-        <!--            <span class="navbar-text">-->
-        <!--                --><? //= $this->Cart->showCart() ?>
-        <!--            </span>-->
-        <!--            -->
-        <!--        </div>-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <?= $this->NavBar->linkItem('Episodes', ['controller' => 'Episodes']) ?>
+                <?= $this->NavBar->linkItem('Films', ['controller' => 'Films']) ?>
+                <?= $this->NavBar->linkItem('About', ['controller' => 'Pages', 'action' => 'display', 'about']) ?>
+                <?= $this->NavBar->linkItem('Contact', ['controller' => 'Pages', 'action' => 'display', 'contact']) ?>
+
+            </ul>
+            <ul class="navbar-nav ms-auto"></ul>
+            <?php if ($this->Identity->isLoggedIn()): ?>
+                <span class="navbar-text me-3">Logged in as <?= $this->Identity->get('name') ?></span>
+                <?= $this->Html->link('Log Out', ['controller' => 'Auth', 'action' => 'logout'], ['class' => 'btn btn-sm btn-outline-success']) ?>
+            <?php else: ?>
+                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-sm btn-success me-1']) ?>
+                <?= $this->Html->link('Register', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'btn btn-sm btn-outline-success']) ?>
+            <?php endif; ?>
+        </div>
     </div>
 </nav>
