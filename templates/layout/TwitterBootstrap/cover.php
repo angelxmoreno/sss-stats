@@ -1,8 +1,10 @@
 <?php
 /**
- * @var \Cake\View\View $this
+ * @var View $this
  */
+
 use Cake\Core\Configure;
+use Cake\View\View;
 
 $this->start('html');
 printf('<html lang="%s" class="h-100">', Configure::read('App.language'));
@@ -13,12 +15,12 @@ $this->Html->css('BootstrapUI.cover', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',
     'class="d-flex h-100 text-center text-white bg-dark ' .
-        implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
-        '" '
+    implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
+    '" '
 );
 
 $this->start('tb_body_start'); ?>
-<body <?= $this->fetch('tb_body_attrs') ?>>
+    <body <?= $this->fetch('tb_body_attrs') ?>>
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
@@ -31,11 +33,11 @@ $this->start('tb_body_start'); ?>
         <main role="main" class="px-3">
             <?= $this->fetch('content') ?>
         </main>
-<?php $this->end(); ?>
+        <?php $this->end(); ?>
 
-<?php $this->start('tb_body_end'); ?>
+        <?php $this->start('tb_body_end'); ?>
     </div>
-</body>
+    </body>
 <?php $this->end(); ?>
 
 <?php

@@ -1,15 +1,17 @@
 <?php
 /**
- * @var \Cake\View\View $this
+ * @var View $this
  */
+
 use Cake\Core\Configure;
+use Cake\View\View;
 
 $this->Html->css('BootstrapUI.dashboard', ['block' => true]);
 $this->prepend(
     'tb_body_attrs',
     ' class="' .
-        implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
-        '" '
+    implode(' ', [h($this->request->getParam('controller')), h($this->request->getParam('action'))]) .
+    '" '
 );
 $this->start('tb_body_start');
 ?>
@@ -35,19 +37,19 @@ $this->start('tb_body_start');
         </ul>
     </header>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="">
-                <div class="position-sticky pt-3">
-                    <?= $this->fetch('tb_sidebar') ?>
-                </div>
-            </nav>
+<div class="container-fluid">
+    <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="">
+        <div class="position-sticky pt-3">
+            <?= $this->fetch('tb_sidebar') ?>
+        </div>
+    </nav>
 
-            <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center
+    <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center
                             pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2 page-header"><?= h($this->request->getParam('controller')) ?></h1>
-                </div>
+        <h1 class="h2 page-header"><?= h($this->request->getParam('controller')) ?></h1>
+    </div>
 <?php
 /**
  * Default `flash` block.

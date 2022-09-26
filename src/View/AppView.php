@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace App\View;
 
+use App\View\Helper\NavBarHelper;
+use Authentication\View\Helper\IdentityHelper;
 use BootstrapUI\View\Helper\BreadcrumbsHelper;
 use BootstrapUI\View\Helper\FlashHelper;
 use BootstrapUI\View\Helper\FormHelper;
@@ -36,6 +38,8 @@ use Cake\View\View;
  * @property FlashHelper $Flash
  * @property PaginatorHelper $Paginator
  * @property BreadcrumbsHelper $Breadcrumbs
+ * @property IdentityHelper $Identity
+ * @property NavBarHelper $NavBar
  */
 class AppView extends View
 {
@@ -56,5 +60,8 @@ class AppView extends View
         $this->initializeUI([
             'layout' => 'bootstrap5',
         ]);
+
+        $this->loadHelper('Authentication.Identity');
+        $this->loadHelper('NavBar');
     }
 }
