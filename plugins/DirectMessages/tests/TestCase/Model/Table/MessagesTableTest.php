@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Model\Table;
+namespace DirectMessages\Test\TestCase\Model\Table;
 
-use App\Model\Table\MessagesTable;
 use Cake\TestSuite\TestCase;
+use DirectMessages\Model\Table\MessagesTable;
 
 /**
- * App\Model\Table\MessagesTable Test Case
+ * DirectMessages\Model\Table\MessagesTable Test Case
  */
 class MessagesTableTest extends TestCase
 {
@@ -24,15 +24,16 @@ class MessagesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Messages',
-        'app.Users',
+        'plugin.DirectMessages.Messages',
+        'plugin.DirectMessages.MessageThreads',
+        'plugin.DirectMessages.Users',
     ];
 
     /**
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\MessagesTable::validationDefault()
+     * @uses \DirectMessages\Model\Table\MessagesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -43,7 +44,7 @@ class MessagesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\MessagesTable::buildRules()
+     * @uses \DirectMessages\Model\Table\MessagesTable::buildRules()
      */
     public function testBuildRules(): void
     {

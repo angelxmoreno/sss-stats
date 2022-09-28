@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\Fixture;
+namespace DirectMessages\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * MessageThhreadsFixture
+ * MessageThreadsFixture
  */
-class MessageThhreadsFixture extends TestFixture
+class MessageThreadsFixture extends TestFixture
 {
     /**
      * Init method
@@ -22,8 +22,9 @@ class MessageThhreadsFixture extends TestFixture
                 'id' => 1,
                 'user_1_id' => 1,
                 'user_2_id' => 1,
-                'created' => '2022-09-25 00:46:42',
-                'modified' => '2022-09-25 00:46:42',
+                'message_count' => 1,
+                'created' => '2022-09-27 17:58:26',
+                'modified' => '2022-09-27 17:58:26',
             ],
         ];
         parent::init();
