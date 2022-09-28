@@ -62,6 +62,6 @@ class User extends Entity
      * @var array<string>
      */
     protected $_hidden = [
-        'password',
+        'password', 'google_auth_provider_id',
     ];
 }

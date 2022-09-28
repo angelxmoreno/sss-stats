@@ -31,11 +31,12 @@ use Cake\Core\Configure;
             </ul>
             <ul class="navbar-nav ms-auto"></ul>
             <?php if ($this->Identity->isLoggedIn()): ?>
-                <span class="navbar-text me-3">Logged in as <?= $this->Identity->get('name') ?></span>
-                <?= $this->Html->link('Log Out', ['controller' => 'Auth', 'action' => 'logout'], ['class' => 'btn btn-sm btn-outline-success']) ?>
+                <?= $this->cell('DirectMessages.Messages')->render() ?>.
+                <span class="navbar-text mx-3">Logged in as <?= $this->Identity->get('name') ?></span>
+                <?= $this->Html->linkFromPath('Log Out', 'Auth::logout', [], ['class' => 'btn btn-sm btn-outline-success']) ?>
             <?php else: ?>
-                <?= $this->Html->link('Log In', ['controller' => 'Auth', 'action' => 'login'], ['class' => 'btn btn-sm btn-success me-1']) ?>
-                <?= $this->Html->link('Register', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'btn btn-sm btn-outline-success']) ?>
+                <?= $this->Html->linkFromPath('Log In', 'Auth::login', [], ['class' => 'btn btn-sm btn-success me-1']) ?>
+                <?= $this->Html->linkFromPath('Register', 'Auth::register', [], ['class' => 'btn btn-sm btn-outline-success']) ?>
             <?php endif; ?>
         </div>
     </div>

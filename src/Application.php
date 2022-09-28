@@ -75,6 +75,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('BootstrapUI');
         $this->addPlugin('BakeTheme');
         $this->addPlugin('LeagueAuth');
+        $this->addPlugin('DirectMessages');
+        $this->addPlugin('Muffin/Trash');
     }
 
     /**
