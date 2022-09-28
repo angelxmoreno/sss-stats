@@ -20,9 +20,10 @@ class EpisodesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'you_tube_video_id' => 1,
                 'episode_number' => '',
-                'created' => '2022-09-25 19:49:05',
-                'modified' => '2022-09-25 19:49:05',
+                'created' => '2022-09-28 12:32:37',
+                'modified' => '2022-09-28 12:32:37',
             ],
         ];
         parent::init();

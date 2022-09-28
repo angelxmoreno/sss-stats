@@ -6,6 +6,7 @@ namespace App\Model\Table;
 use App\Model\Entity\Episode;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\TimestampBehavior;
@@ -16,6 +17,7 @@ use Cake\Validation\Validator;
 /**
  * Episodes Model
  *
+ * @property YouTubeVideosTable&BelongsTo $YouTubeVideos
  * @property EpisodeAttributeValuesTable&HasMany $EpisodeAttributeValues
  * @property EpisodeSnacksTable&HasMany $EpisodeSnacks
  * @property FilmsTable&HasMany $Films
@@ -55,6 +57,9 @@ class EpisodesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('YouTubeVideos', [
+            'foreignKey' => 'you_tube_video_id',
+        ]);
         $this->hasMany('EpisodeAttributeValues', [
             'foreignKey' => 'episode_id',
         ]);
@@ -80,6 +85,11 @@ class EpisodesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->nonNegativeInteger('you_tube_video_id')
+            ->allowEmptyString('you_tube_video_id')
+            ->add('you_tube_video_id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->scalar('episode_number')
             ->maxLength('episode_number', 3)
             ->notEmptyString('episode_number')
@@ -98,6 +108,7 @@ class EpisodesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['episode_number']), ['errorField' => 'episode_number']);
+        $rules->add($rules->existsIn('you_tube_video_id', 'YouTubeVideos'), ['errorField' => 'you_tube_video_id']);
 
         return $rules;
     }

@@ -14,8 +14,8 @@ use Cake\ORM\Entity;
  * @property string|null $title
  * @property string|null $channel_title
  * @property string|null $description
- * @property string|null $tags
- * @property string|null $thumbnails
+ * @property array|null $tags
+ * @property array|null $thumbnails
  * @property string|null $duration
  * @property int|null $comment_count
  * @property int|null $dislike_count

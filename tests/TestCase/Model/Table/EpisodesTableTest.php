@@ -25,8 +25,10 @@ class EpisodesTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Episodes',
+        'app.YouTubeVideos',
         'app.EpisodeAttributeValues',
         'app.EpisodeSnacks',
+        'app.Snacks',
         'app.Films',
     ];
 

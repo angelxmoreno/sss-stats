@@ -10,15 +10,17 @@ use Cake\ORM\Entity;
  * Episode Entity
  *
  * @property int $id
- * @property int $name
+ * @property string|null $name
+ * @property int|null $you_tube_video_id
  * @property string $episode_number
  * @property FrozenTime|null $created
  * @property FrozenTime|null $modified
  *
+ * @property YouTubeVideo $you_tube_video
  * @property EpisodeAttributeValue[] $episode_attribute_values
  * @property EpisodeSnack[] $episode_snacks
- * @property Film[] $films
  * @property Snack[] $snacks
+ * @property Film[] $films
  */
 class Episode extends Entity
 {
@@ -32,13 +34,15 @@ class Episode extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'you_tube_video_id' => true,
         'episode_number' => true,
         'created' => true,
         'modified' => true,
+        'you_tube_video' => true,
         'episode_attribute_values' => true,
         'episode_snacks' => true,
-        'films' => true,
         'snacks' => true,
+        'films' => true,
     ];
 
     protected $_virtual = ['name'];
