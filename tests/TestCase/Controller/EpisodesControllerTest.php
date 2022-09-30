@@ -23,6 +23,7 @@ class EpisodesControllerTest extends TestCase
      */
     protected $fixtures = [
         'app.Episodes',
+        'app.YouTubeVideos',
         'app.EpisodeAttributeValues',
         'app.EpisodeSnacks',
         'app.Snacks',

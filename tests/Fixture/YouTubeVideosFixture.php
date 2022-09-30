@@ -32,10 +32,10 @@ class YouTubeVideosFixture extends TestFixture
                 'favorite_count' => 1,
                 'like_count' => 1,
                 'view_count' => 1,
-                'published' => '2022-09-28 03:29:17',
-                'created' => '2022-09-28 03:29:17',
-                'modified' => '2022-09-28 03:29:17',
-                'deleted' => '2022-09-28 03:29:17',
+                'published' => '2022-09-28 17:48:34',
+                'created' => '2022-09-28 17:48:34',
+                'modified' => '2022-09-28 17:48:34',
+                'deleted' => '2022-09-28 17:48:34',
             ],
         ];
         parent::init();
