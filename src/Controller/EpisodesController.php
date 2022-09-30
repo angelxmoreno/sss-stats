@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\Entity\Episode;
 use App\Model\Table\EpisodesTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Datasource\Paging\Exception\PageOutOfBoundsException;
 use Cake\Datasource\ResultSetInterface;
 use Cake\Http\Response;
 
@@ -17,13 +18,6 @@ use Cake\Http\Response;
  */
 class EpisodesController extends AppController
 {
-    public $paginate = [
-        'limit' => 100,
-        'order' => [
-            'Episodes.episode_number' => 'desc',
-        ],
-    ];
-
     /**
      * Index method
      *
@@ -31,7 +25,30 @@ class EpisodesController extends AppController
      */
     public function index()
     {
-        $episodes = $this->paginate($this->Episodes);
+        $this->paginate = [
+            'contain' => ['YouTubeVideos'],
+            'limit' => 18,
+            'order' => [
+                'Episodes.episode_number' => 'desc',
+            ],
+        ];
+        $query = $this->Episodes->find();
+
+        $sortFields = [
+            'Episodes' => ['episode_number'],
+            'YouTubeVideos' => ['like_count', 'comment_count', 'view_count'],
+        ];
+        $sort = $this->getRequest()->getQuery('sort', 'Episodes.episode_number');
+        $direction = $this->getRequest()->getQuery('direction', 'desc');
+        [$model, $field] = explode('.', $sort);
+        if (!in_array($model, array_keys($sortFields))) throw new PageOutOfBoundsException(sprintf('"%s" is not a valid sort model', $model));
+        if (!in_array($field, $sortFields[$model])) throw new PageOutOfBoundsException(sprintf('"%s" is not a valid sort field for mode "%s"', $field, $model));
+        if (!in_array($direction, ['asc', 'desc'])) throw new PageOutOfBoundsException(sprintf('"%s" is not a valid sort direction', $direction));
+
+        $query->order([
+            $sort => $direction,
+        ]);
+        $episodes = $this->paginate($query);
 
         $this->set(compact('episodes'));
     }
@@ -46,7 +63,7 @@ class EpisodesController extends AppController
     public function view(?string $id = null)
     {
         $episode = $this->Episodes->get($id, [
-            'contain' => ['Snacks', 'EpisodeAttributeValues', 'Films'],
+            'contain' => ['YouTubeVideos', 'Snacks', 'EpisodeAttributeValues', 'Films'],
         ]);
 
         $this->set(compact('episode'));
@@ -69,8 +86,9 @@ class EpisodesController extends AppController
             }
             $this->Flash->error(__('The episode could not be saved. Please, try again.'));
         }
+        $youTubeVideos = $this->Episodes->YouTubeVideos->find('list', ['limit' => 200])->all();
         $snacks = $this->Episodes->Snacks->find('list', ['limit' => 200])->all();
-        $this->set(compact('episode', 'snacks'));
+        $this->set(compact('episode', 'youTubeVideos', 'snacks'));
     }
 
     /**
@@ -94,8 +112,9 @@ class EpisodesController extends AppController
             }
             $this->Flash->error(__('The episode could not be saved. Please, try again.'));
         }
+        $youTubeVideos = $this->Episodes->YouTubeVideos->find('list', ['limit' => 200])->all();
         $snacks = $this->Episodes->Snacks->find('list', ['limit' => 200])->all();
-        $this->set(compact('episode', 'snacks'));
+        $this->set(compact('episode', 'youTubeVideos', 'snacks'));
     }
 
     /**

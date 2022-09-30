@@ -1,29 +1,57 @@
 <?php
 /**
  * @var AppView $this
+ * @var Episode $episode
  */
 
+use App\Model\Entity\Episode;
+use App\Utility\NumberAbbreviator;
 use App\View\AppView;
 
 ?>
-<div class="col">
-    <div class="card shadow-sm">
-        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-             role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c"></rect>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-        </svg>
-        <div class="card-body">
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-            </div>
-        </div>
+<div class="card border-danger">
+    <div class="card-header d-flex flex-row justify-content-between">
+        <strong>Episode <?= $episode->name ?></strong>
+        <small class="text-muted">
+            <?= $this->Time->timeAgoInWords($episode->you_tube_video->published, [
+                'accuracy' => [
+                    'day' => 'day',
+                    'week' => 'week',
+                ],
+            ]) ?>
+        </small>
     </div>
+    <div class="position-relative">
+        <?= $this->Html->image($episode->you_tube_video->thumbnails->maxres->url, [
+            'class' => 'img-fluid card-img-top',
+            'alt' => $episode->you_tube_video->title,
+        ]) ?>
+        <?= $this->Html->image('play-button.png', [
+            'class' => 'img-fluid position-absolute top-50 start-50 translate-middle',
+            'width' => '15%',
+        ]) ?>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-truncate">
+            <?= $episode->title ?>
+        </h5>
+        <div class="d-flex flex-row justify-content-between">
+            <strong>
+                <?= $this->Html->icon('eye') ?>
+                <?= NumberAbbreviator::shorten($episode->you_tube_video->view_count) ?>
+            </strong>
+            <strong>
+                <?= $this->Html->icon('hand-thumbs-up') ?>
+                <?= NumberAbbreviator::shorten($episode->you_tube_video->like_count) ?>
+            </strong>
+            <strong>
+                <?= $this->Html->icon('clock') ?>
+                <?= (new DateInterval($episode->you_tube_video->duration))->format('%i minutes') ?>
+            </strong>
+        </div>
+
+    </div>
+    <?= $this->Html->linkFromPath('', 'Episodes::view', [$episode->id], [
+        'class' => 'stretched-link',
+    ]) ?>
 </div>
