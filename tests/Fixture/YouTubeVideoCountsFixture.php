@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * EpisodesFixture
+ * YouTubeVideoCountsFixture
  */
-class EpisodesFixture extends TestFixture
+class YouTubeVideoCountsFixture extends TestFixture
 {
     /**
      * Init method
@@ -21,10 +21,13 @@ class EpisodesFixture extends TestFixture
             [
                 'id' => 1,
                 'you_tube_video_id' => 1,
-                'title' => 'Lorem ipsum dolor sit amet',
-                'episode_number' => '',
-                'created' => '2022-09-30 05:52:33',
-                'modified' => '2022-09-30 05:52:33',
+                'comment_count' => 1,
+                'dislike_count' => 1,
+                'favorite_count' => 1,
+                'like_count' => 1,
+                'view_count' => 1,
+                'created' => '2022-09-30 05:52:13',
+                'modified' => '2022-09-30 05:52:13',
             ],
         ];
         parent::init();

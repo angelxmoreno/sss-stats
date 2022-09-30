@@ -31,12 +31,12 @@ use Cake\Core\Configure;
             </ul>
             <ul class="navbar-nav ms-auto"></ul>
             <?php if ($this->Identity->isLoggedIn()): ?>
-                <?= $this->cell('DirectMessages.Messages')->render() ?>.
+                <?= $this->cell('DirectMessages.Messages')->render() ?>
                 <span class="navbar-text mx-3">Logged in as <?= $this->Identity->get('name') ?></span>
-                <?= $this->Html->linkFromPath('Log Out', 'Auth::logout', [], ['class' => 'btn btn-sm btn-outline-success']) ?>
+                <?= $this->Html->linkFromPath('Log Out', 'Auth::logout', [], ['class' => 'btn btn-sm btn-outline-primary']) ?>
             <?php else: ?>
-                <?= $this->Html->linkFromPath('Log In', 'Auth::login', [], ['class' => 'btn btn-sm btn-success me-1']) ?>
-                <?= $this->Html->linkFromPath('Register', 'Auth::register', [], ['class' => 'btn btn-sm btn-outline-success']) ?>
+                <?= $this->Html->linkFromPath('Log In', 'Auth::login', [], ['class' => 'btn btn-sm btn-primary me-1']) ?>
+                <?= $this->Html->linkFromPath('Register', 'Auth::register', [], ['class' => 'btn btn-sm btn-outline-primary']) ?>
             <?php endif; ?>
         </div>
     </div>

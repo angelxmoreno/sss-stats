@@ -147,6 +147,16 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEROUTES_URL', null),
         ],
+
+        '_google_api_' => [
+            'className' => FileEngine::class,
+            'prefix' => 'google_api_',
+            'path' => CACHE . 'persistent' . DS,
+            'serialize' => true,
+            'duration' => '+15 minutes',
+            'url' => env('CACHE_GOOGLE_API_URL', null),
+        ],
+
     ],
 
     /*
@@ -437,5 +447,12 @@ return [
                 ],
             ],
         ],
+    ],
+    'YouTube' => [
+        'applicationName' => 'SSS Stats',
+        'apiKey' => env('GOOGLE_API_KEY'),
+        'clientId' => env('GOOGLE_CLIENT_ID'),
+        'clientSecret' => env('GOOGLE_CLIENT_SECRET'),
+        'playlistId' => 'PLxoHK1S7LhWRBvv5VLqkIYWYXT6_GnPiS',
     ],
 ];

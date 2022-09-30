@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\EpisodesTable;
+use App\Model\Table\YouTubeVideosTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\EpisodesTable Test Case
+ * App\Model\Table\YouTubeVideosTable Test Case
  */
-class EpisodesTableTest extends TestCase
+class YouTubeVideosTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var EpisodesTable
+     * @var YouTubeVideosTable
      */
-    protected $Episodes;
+    protected $YouTubeVideos;
 
     /**
      * Fixtures
@@ -24,18 +24,16 @@ class EpisodesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Episodes',
         'app.YouTubeVideos',
-        'app.EpisodeAttributeValues',
-        'app.EpisodeSnacks',
-        'app.Films',
+        'app.Episodes',
+        'app.YouTubeVideoCounts',
     ];
 
     /**
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\EpisodesTable::validationDefault()
+     * @uses \App\Model\Table\YouTubeVideosTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -46,7 +44,7 @@ class EpisodesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\EpisodesTable::buildRules()
+     * @uses \App\Model\Table\YouTubeVideosTable::buildRules()
      */
     public function testBuildRules(): void
     {
@@ -61,8 +59,8 @@ class EpisodesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Episodes') ? [] : ['className' => EpisodesTable::class];
-        $this->Episodes = $this->getTableLocator()->get('Episodes', $config);
+        $config = $this->getTableLocator()->exists('YouTubeVideos') ? [] : ['className' => YouTubeVideosTable::class];
+        $this->YouTubeVideos = $this->getTableLocator()->get('YouTubeVideos', $config);
     }
 
     /**
@@ -72,7 +70,7 @@ class EpisodesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Episodes);
+        unset($this->YouTubeVideos);
 
         parent::tearDown();
     }

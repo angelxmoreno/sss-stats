@@ -6,9 +6,11 @@ namespace App\Model\Table;
 use App\Model\Entity\Episode;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -16,10 +18,13 @@ use Cake\Validation\Validator;
 /**
  * Episodes Model
  *
+ * @property YouTubeVideosTable&BelongsTo $YouTubeVideos
  * @property EpisodeAttributeValuesTable&HasMany $EpisodeAttributeValues
  * @property EpisodeSnacksTable&HasMany $EpisodeSnacks
  * @property FilmsTable&HasMany $Films
  * @property SnacksTable&BelongsToMany $Snacks
+ *
+ * @method Query findByEpisodeNumber(string $episode_number)
  *
  * @method Episode newEmptyEntity()
  * @method Episode newEntity(array $data, array $options = [])
@@ -55,6 +60,10 @@ class EpisodesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('YouTubeVideos', [
+            'foreignKey' => 'you_tube_video_id',
+            'joinType' => 'INNER',
+        ]);
         $this->hasMany('EpisodeAttributeValues', [
             'foreignKey' => 'episode_id',
         ]);
@@ -80,6 +89,17 @@ class EpisodesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->nonNegativeInteger('you_tube_video_id')
+            ->requirePresence('you_tube_video_id', 'create')
+            ->notEmptyString('you_tube_video_id')
+            ->add('you_tube_video_id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->scalar('title')
+            ->maxLength('title', 200)
+            ->notEmptyString('title');
+
+        $validator
             ->scalar('episode_number')
             ->maxLength('episode_number', 3)
             ->notEmptyString('episode_number')
@@ -98,6 +118,7 @@ class EpisodesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['episode_number']), ['errorField' => 'episode_number']);
+        $rules->add($rules->existsIn('you_tube_video_id', 'YouTubeVideos'), ['errorField' => 'you_tube_video_id']);
 
         return $rules;
     }
