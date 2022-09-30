@@ -4,11 +4,29 @@
  * @var Episode $episode
  */
 
+use App\Model\Dao\HeaderBody;
 use App\Model\Entity\Episode;
+use App\Utility\Duration;
+use App\Utility\NumberAbbreviator;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
 $this->assign('page_controls', '');
+
+$headerBodies = [
+    new HeaderBody('Metrics', 'coming soon', 'metricsHeader', 'metricsBody', true),
+    new HeaderBody('Snacks', 'coming soon'),
+    new HeaderBody('Films', 'coming soon'),
+    new HeaderBody('Comments', 'coming soon'),
+    new HeaderBody('Description', $this->Text->autoParagraph($this->Text->autoLink($episode->you_tube_video->description, ['target' => 'outbound']))),
+];
+
+$infoRows = [
+    'Date Aired' => $this->Time->nice($episode->you_tube_video->published),
+    'Likes' => NumberAbbreviator::shorten($episode->you_tube_video->like_count),
+    'Views' => NumberAbbreviator::shorten($episode->you_tube_video->view_count),
+    'Duration' => Duration::humanize($episode->you_tube_video->duration),
+];
 ?>
 <?php $this->start('titleBlock') ?>
 <h1>
@@ -26,12 +44,26 @@ $this->assign('page_controls', '');
             <?= $this->YouTube->renderVideo($episode->you_tube_video) ?>
         </div>
         <div class="col">
-            <div class="ratio ratio-16x9">
-                <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-            </div>
+            <?php foreach ($infoRows as $k => $v): ?>
+                <h4><?= $k ?></h4>
+                <p class="lead">
+                    <?= $v ?>
+                </p>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
+<hr/>
+<?= $this->element('headerBody/accordion', [
+    'containerId' => 'episodeAccordion',
+    'rows' => $headerBodies,
+]) ?>
+<hr/>
+<?= $this->element('headerBody/tabs', [
+    'containerId' => 'episodeTabs',
+    'rows' => $headerBodies,
+]) ?>
+<hr/>
 <div class="episodes view large-9 medium-8 columns content">
     <h4><?= h($episode->title) ?></h4>
     <div class="table-responsive">
