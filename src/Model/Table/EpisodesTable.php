@@ -10,6 +10,7 @@ use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Association\BelongsToMany;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -22,6 +23,8 @@ use Cake\Validation\Validator;
  * @property EpisodeSnacksTable&HasMany $EpisodeSnacks
  * @property FilmsTable&HasMany $Films
  * @property SnacksTable&BelongsToMany $Snacks
+ *
+ * @method Query findByEpisodeNumber(string $episode_number)
  *
  * @method Episode newEmptyEntity()
  * @method Episode newEntity(array $data, array $options = [])

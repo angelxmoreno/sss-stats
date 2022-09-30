@@ -56,7 +56,7 @@ class Episode extends Entity
             : '#' . $this->episode_number;
     }
 
-    protected function _setTitle(?string $title):?string
+    protected function _setTitle(?string $title): ?string
     {
         return is_null($title)
             ? null
