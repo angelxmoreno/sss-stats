@@ -5,6 +5,7 @@
  */
 
 use App\Model\Entity\Episode;
+use App\Utility\Duration;
 use App\Utility\NumberAbbreviator;
 use App\View\AppView;
 
@@ -46,7 +47,7 @@ use App\View\AppView;
             </strong>
             <strong>
                 <?= $this->Html->icon('clock') ?>
-                <?= (new DateInterval($episode->you_tube_video->duration))->format('%i minutes') ?>
+                <?= Duration::humanize($episode->you_tube_video->duration) ?>
             </strong>
         </div>
 
