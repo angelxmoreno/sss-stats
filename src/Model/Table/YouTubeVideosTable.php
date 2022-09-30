@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Database\Type\ThumbnailCollectionType;
 use App\Model\Entity\YouTubeVideo;
+use Cake\Database\Type\JsonType;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
@@ -12,7 +14,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-TypeFactory::map('json', 'Cake\Database\Type\JsonType');
+TypeFactory::map('json', JsonType::class);
+TypeFactory::map('thumbnails', ThumbnailCollectionType::class);
 
 /**
  * YouTubeVideos Model
@@ -44,7 +47,7 @@ class YouTubeVideosTable extends Table
     public function initialize(array $config): void
     {
         $this->getSchema()->setColumnType('tags', 'json');
-        $this->getSchema()->setColumnType('thumbnails', 'json');
+        $this->getSchema()->setColumnType('thumbnails', 'thumbnails');
 
         parent::initialize($config);
 

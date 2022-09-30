@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $title
  * @property int|null $you_tube_video_id
  * @property string $episode_number
  * @property FrozenTime|null $created
@@ -45,13 +46,20 @@ class Episode extends Entity
         'films' => true,
     ];
 
-    protected $_virtual = ['name'];
+    protected $_virtual = ['name', 'title'];
 
     protected function _getName(): ?string
     {
         return is_null($this->episode_number)
             ? null
             : '#' . $this->episode_number;
+    }
+
+    protected function _getTitle(): ?string
+    {
+        return is_null($this->you_tube_video)
+            ? null
+            : trim(preg_replace('/\[SSS #[^\]]+\]/', '', $this->you_tube_video->title));
     }
 
 }

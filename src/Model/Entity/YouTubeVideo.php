@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use App\Model\Helper\ThumbnailCollection;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
@@ -15,7 +16,7 @@ use Cake\ORM\Entity;
  * @property string|null $channel_title
  * @property string|null $description
  * @property array|null $tags
- * @property array|null $thumbnails
+ * @property ThumbnailCollection|null $thumbnails
  * @property string|null $duration
  * @property int|null $comment_count
  * @property int|null $dislike_count
