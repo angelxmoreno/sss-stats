@@ -8,13 +8,32 @@ use App\Model\Entity\Episode;
 use App\View\AppView;
 
 $this->extend('BakeTheme.Common/view');
-$this->assign('title', 'Episode');
-$this->assign('identifier', $episode->id)
+$this->assign('page_controls', '');
 ?>
+<?php $this->start('titleBlock') ?>
+<h1>
+    <?= $episode->title ?>
+    <small class="fs-3 text-muted">
+        episode <?= $episode->name ?>
+    </small>
+</h1>
+<hr/>
+<?php $this->end() ?>
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <?= $this->YouTube->renderVideo($episode->you_tube_video) ?>
+        </div>
+        <div class="col">
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="episodes view large-9 medium-8 columns content">
-    <h4><?= h($episode->name) ?></h4>
+    <h4><?= h($episode->title) ?></h4>
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>

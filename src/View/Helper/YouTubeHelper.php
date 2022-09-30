@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\View\Helper;
 
+use App\Model\Entity\YouTubeVideo;
 use BootstrapUI\View\Helper\HtmlHelper;
+use Cake\Routing\Router;
 use Cake\View\Helper;
 
 /**
@@ -15,6 +17,26 @@ use Cake\View\Helper;
 class YouTubeHelper extends Helper
 {
     protected $helpers = ['Html', 'Url'];
+
+    public function renderVideo(YouTubeVideo $video): string
+    {
+        $origin = Router::url(null, true);
+        $src = 'https://www.youtube.com/embed/' . $video->uid . '?' . http_build_query([
+                'origin' => $origin,
+                'playsinline' => 1,
+                'playlist' => $video->uid,
+                'loop' => 1,
+            ]);
+
+        $iframe = $this->Html->tag('iframe', '', [
+            'src' => $src,
+            'frameborder' => '0',
+            'allowfullscreen' => '1',
+            'allow' => 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+            'title' => $video->title,
+        ]);
+        return $this->Html->div('ratio ratio-16x9', $iframe);
+    }
 
     public function renderThumbnail(?string $episodeNumber = null): string
     {
