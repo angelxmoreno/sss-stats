@@ -59,6 +59,7 @@ class EpisodesTable extends Table
 
         $this->belongsTo('YouTubeVideos', [
             'foreignKey' => 'you_tube_video_id',
+            'joinType' => 'INNER',
         ]);
         $this->hasMany('EpisodeAttributeValues', [
             'foreignKey' => 'episode_id',
@@ -86,8 +87,14 @@ class EpisodesTable extends Table
     {
         $validator
             ->nonNegativeInteger('you_tube_video_id')
-            ->allowEmptyString('you_tube_video_id')
+            ->requirePresence('you_tube_video_id', 'create')
+            ->notEmptyString('you_tube_video_id')
             ->add('you_tube_video_id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->scalar('title')
+            ->maxLength('title', 200)
+            ->notEmptyString('title');
 
         $validator
             ->scalar('episode_number')

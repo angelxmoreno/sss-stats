@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\YouTubeVideosTable;
+use App\Model\Table\YouTubeVideoCountsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\YouTubeVideosTable Test Case
+ * App\Model\Table\YouTubeVideoCountsTable Test Case
  */
-class YouTubeVideosTableTest extends TestCase
+class YouTubeVideoCountsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var YouTubeVideosTable
+     * @var YouTubeVideoCountsTable
      */
-    protected $YouTubeVideos;
+    protected $YouTubeVideoCounts;
 
     /**
      * Fixtures
@@ -24,16 +24,15 @@ class YouTubeVideosTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.YouTubeVideos',
-        'app.Episodes',
         'app.YouTubeVideoCounts',
+        'app.YouTubeVideos',
     ];
 
     /**
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\YouTubeVideosTable::validationDefault()
+     * @uses \App\Model\Table\YouTubeVideoCountsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -44,7 +43,7 @@ class YouTubeVideosTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\YouTubeVideosTable::buildRules()
+     * @uses \App\Model\Table\YouTubeVideoCountsTable::buildRules()
      */
     public function testBuildRules(): void
     {
@@ -59,8 +58,8 @@ class YouTubeVideosTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('YouTubeVideos') ? [] : ['className' => YouTubeVideosTable::class];
-        $this->YouTubeVideos = $this->getTableLocator()->get('YouTubeVideos', $config);
+        $config = $this->getTableLocator()->exists('YouTubeVideoCounts') ? [] : ['className' => YouTubeVideoCountsTable::class];
+        $this->YouTubeVideoCounts = $this->getTableLocator()->get('YouTubeVideoCounts', $config);
     }
 
     /**
@@ -70,7 +69,7 @@ class YouTubeVideosTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->YouTubeVideos);
+        unset($this->YouTubeVideoCounts);
 
         parent::tearDown();
     }

@@ -9,6 +9,8 @@ use Cake\Database\Type\JsonType;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\ResultSetInterface;
+use Cake\ORM\Association\HasMany;
+use Cake\ORM\Association\HasOne;
 use Cake\ORM\Behavior\TimestampBehavior;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -19,6 +21,9 @@ TypeFactory::map('thumbnails', ThumbnailCollectionType::class);
 
 /**
  * YouTubeVideos Model
+ *
+ * @property EpisodesTable&HasOne $Episodes
+ * @property YouTubeVideoCountsTable&HasMany $YouTubeVideoCounts
  *
  * @method YouTubeVideo newEmptyEntity()
  * @method YouTubeVideo newEntity(array $data, array $options = [])
@@ -56,6 +61,13 @@ class YouTubeVideosTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasOne('Episodes', [
+            'foreignKey' => 'you_tube_video_id',
+        ]);
+        $this->hasMany('YouTubeVideoCounts', [
+            'foreignKey' => 'you_tube_video_id',
+        ]);
     }
 
     /**
@@ -87,11 +99,11 @@ class YouTubeVideosTable extends Table
             ->allowEmptyString('description');
 
         $validator
-            ->scalar('tags')
+            ->isArray('tags')
             ->allowEmptyString('tags');
 
         $validator
-            ->scalar('thumbnails')
+            ->isArray('thumbnails')
             ->allowEmptyString('thumbnails');
 
         $validator

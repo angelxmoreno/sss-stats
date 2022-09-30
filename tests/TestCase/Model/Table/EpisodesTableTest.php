@@ -28,7 +28,6 @@ class EpisodesTableTest extends TestCase
         'app.YouTubeVideos',
         'app.EpisodeAttributeValues',
         'app.EpisodeSnacks',
-        'app.Snacks',
         'app.Films',
     ];
 
