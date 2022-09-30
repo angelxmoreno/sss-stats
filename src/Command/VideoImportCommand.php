@@ -54,6 +54,7 @@ class VideoImportCommand extends Command
             $youTubeVideo->channel_title = $video->getSnippet()->getChannelTitle();
             $youTubeVideo->description = $video->getSnippet()->getDescription();
             $youTubeVideo->tags = $video->getSnippet()->getTags();
+            $youTubeVideo->thumbnails = $video->getSnippet()->getThumbnails();
             $youTubeVideo->duration = $video->getContentDetails()->getDuration();
             $youTubeVideo->comment_count = $video->getStatistics()->getCommentCount();
             $youTubeVideo->dislike_count = $video->getStatistics()->getDislikeCount();
