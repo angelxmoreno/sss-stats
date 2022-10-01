@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\YouTubeVideosTable;
+use App\Model\Table\YouTubeCommentAuthorsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\YouTubeVideosTable Test Case
+ * App\Model\Table\YouTubeCommentAuthorsTable Test Case
  */
-class YouTubeVideosTableTest extends TestCase
+class YouTubeCommentAuthorsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var YouTubeVideosTable
+     * @var YouTubeCommentAuthorsTable
      */
-    protected $YouTubeVideos;
+    protected $YouTubeCommentAuthors;
 
     /**
      * Fixtures
@@ -24,17 +24,15 @@ class YouTubeVideosTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.YouTubeVideos',
-        'app.Episodes',
+        'app.YouTubeCommentAuthors',
         'app.YouTubeComments',
-        'app.YouTubeVideoCounts',
     ];
 
     /**
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\YouTubeVideosTable::validationDefault()
+     * @uses \App\Model\Table\YouTubeCommentAuthorsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -45,7 +43,7 @@ class YouTubeVideosTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\YouTubeVideosTable::buildRules()
+     * @uses \App\Model\Table\YouTubeCommentAuthorsTable::buildRules()
      */
     public function testBuildRules(): void
     {
@@ -60,8 +58,8 @@ class YouTubeVideosTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('YouTubeVideos') ? [] : ['className' => YouTubeVideosTable::class];
-        $this->YouTubeVideos = $this->getTableLocator()->get('YouTubeVideos', $config);
+        $config = $this->getTableLocator()->exists('YouTubeCommentAuthors') ? [] : ['className' => YouTubeCommentAuthorsTable::class];
+        $this->YouTubeCommentAuthors = $this->getTableLocator()->get('YouTubeCommentAuthors', $config);
     }
 
     /**
@@ -71,7 +69,7 @@ class YouTubeVideosTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->YouTubeVideos);
+        unset($this->YouTubeCommentAuthors);
 
         parent::tearDown();
     }

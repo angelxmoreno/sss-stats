@@ -29,6 +29,7 @@ use Cake\ORM\Entity;
  * @property FrozenTime|null $deleted
  *
  * @property Episode $episode
+ * @property YouTubeComment[] $you_tube_comments
  * @property YouTubeVideoCount[] $you_tube_video_counts
  */
 class YouTubeVideo extends Entity
@@ -60,6 +61,7 @@ class YouTubeVideo extends Entity
         'modified' => true,
         'deleted' => true,
         'episode' => true,
+        'you_tube_comments' => true,
         'you_tube_video_counts' => true,
     ];
 }

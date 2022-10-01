@@ -12,6 +12,7 @@ use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\Association\HasMany;
 use Cake\ORM\Association\HasOne;
 use Cake\ORM\Behavior\TimestampBehavior;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -23,6 +24,7 @@ TypeFactory::map('thumbnails', ThumbnailCollectionType::class);
  * YouTubeVideos Model
  *
  * @property EpisodesTable&HasOne $Episodes
+ * @property YouTubeCommentsTable&HasMany $YouTubeComments
  * @property YouTubeVideoCountsTable&HasMany $YouTubeVideoCounts
  *
  * @method YouTubeVideo newEmptyEntity()
@@ -38,6 +40,8 @@ TypeFactory::map('thumbnails', ThumbnailCollectionType::class);
  * @method YouTubeVideo[]|ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method YouTubeVideo[]|ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method YouTubeVideo[]|ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @method Query findByUid(string $uid)
  *
  * @mixin TimestampBehavior
  */
@@ -63,6 +67,9 @@ class YouTubeVideosTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasOne('Episodes', [
+            'foreignKey' => 'you_tube_video_id',
+        ]);
+        $this->hasMany('YouTubeComments', [
             'foreignKey' => 'you_tube_video_id',
         ]);
         $this->hasMany('YouTubeVideoCounts', [
