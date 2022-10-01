@@ -4,6 +4,8 @@ namespace App\View;
 
 use Cake\View\Exception\SerializationFailureException;
 use Cake\View\View;
+use Exception;
+use TypeError;
 
 class JsonPlusView extends View
 {
@@ -19,7 +21,7 @@ class JsonPlusView extends View
                 ]);
             }
             return json_encode($this->viewVars);
-        } catch (\Exception | \TypeError $e) {
+        } catch (Exception | TypeError $e) {
             throw new SerializationFailureException(
                 'Serialization of View data failed.',
                 null,

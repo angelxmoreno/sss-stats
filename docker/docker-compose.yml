@@ -5,6 +5,7 @@ services:
     image: angelxmoreno/php-fpm-alpine:3.0.0
     restart: on-failure
     volumes:
+      - ./fpm/php.ini:/usr/local/etc/php/conf.d/x-php.ini
       - ../:/var/www/html
   nginx:
     container_name: ${APP_PREFIX}-nginx

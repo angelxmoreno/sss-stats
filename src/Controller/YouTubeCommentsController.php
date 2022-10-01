@@ -8,11 +8,8 @@ use App\Model\Table\YouTubeCommentsTable;
 use App\Service\GoogleObjectToEntities;
 use App\Service\YouTubeApi;
 use App\View\JsonPlusView;
-use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Datasource\ResultSetInterface;
 use Cake\Http\Exception\NotFoundException;
-use Cake\Http\Response;
-use Cake\View\JsonView;
 
 /**
  * YouTubeComments Controller

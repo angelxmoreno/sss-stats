@@ -11,8 +11,8 @@ class YouTubeApi
 {
     use ApiCacheTrait;
 
-    protected static ?YouTubeApi $_instance = null;
     protected const DEFAULT_CACHE_NAME = '_google_api_';
+    protected static ?YouTubeApi $_instance = null;
     protected YouTube $service;
     protected string $cacheName;
 
