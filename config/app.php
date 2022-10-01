@@ -150,10 +150,10 @@ return [
 
         '_google_api_' => [
             'className' => FileEngine::class,
-            'prefix' => 'google_api_',
+            'prefix' => 'google_api_v2_',
             'path' => CACHE . 'persistent' . DS,
             'serialize' => true,
-            'duration' => '+15 minutes',
+            'duration' => '+12 hours',
             'url' => env('CACHE_GOOGLE_API_URL', null),
         ],
 

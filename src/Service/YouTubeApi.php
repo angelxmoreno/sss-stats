@@ -4,26 +4,45 @@ namespace App\Service;
 
 use Google\Client;
 use Google\Service\YouTube;
+use Google\Service\YouTube\CommentListResponse;
+use Google\Service\YouTube\CommentThreadListResponse;
 
 class YouTubeApi
 {
-    use SimpleCacheTrait;
+    use ApiCacheTrait;
 
+    protected static ?YouTubeApi $_instance = null;
+    protected const DEFAULT_CACHE_NAME = '_google_api_';
     protected YouTube $service;
+    protected string $cacheName;
 
     /**
      * @param Client|null $client
+     * @param string|null $cacheName
      */
-    public function __construct(Client $client = null)
+    public function __construct(Client $client = null, ?string $cacheName = null)
     {
         $client ??= GoogleClientFactory::create();
+        $cacheName ??= self::DEFAULT_CACHE_NAME;
+
         $this->service = new YouTube($client);
+        $this->cacheName = $cacheName;
+    }
+
+    public static function getInstance(): YouTubeApi
+    {
+        if (!self::$_instance) {
+            self::$_instance = new YouTubeApi();
+        }
+
+        return self::$_instance;
     }
 
     /**
      * @param string $forUsername
      * @param string|null $pageToken
      * @return YouTube\ChannelListResponse
+     * @deprecated
      */
     public function getUserChannels(string $forUsername, ?string $pageToken = null): YouTube\ChannelListResponse
     {
@@ -42,6 +61,7 @@ class YouTubeApi
      * @param YouTube\Channel $channel
      * @param string|null $pageToken
      * @return mixed
+     * @deprecated
      */
     public function getChannelVideos(YouTube\Channel $channel, ?string $pageToken = null)
     {
@@ -111,6 +131,50 @@ class YouTubeApi
             $videoListResponse = $this->getVideoDetails($videoIds);
 
             return new PlayListVideoResponse($playlistItemsResponse, $videoListResponse);
+        });
+    }
+
+    /**
+     * @param string $videoId
+     * @param string|null $pageToken
+     * @return CommentThreadListResponse
+     */
+    public function getVideoCommentThreads(string $videoId, ?string $pageToken = null): CommentThreadListResponse
+    {
+        $prefix = __FUNCTION__;
+        $parts = 'snippet';
+        $params = [
+            'videoId' => $videoId,
+            'maxResults' => 50,
+            'order' => 'relevance',
+        ];
+        $params['pageToken'] = $pageToken === 'next' ? $this->getNextPageToken($prefix, [$parts, $params]) : $pageToken;
+        return $this->cacheRemember($prefix, [$parts, $params], function () use ($prefix, $parts, $params) {
+            $response = $this->service->commentThreads->listCommentThreads($parts, $params);
+            $this->setNextPageToken($prefix, [$parts, $params], $response->getNextPageToken());
+            return $response;
+        });
+    }
+
+    /**
+     * @param string|string[] $commentId
+     * @param string|null $pageToken
+     * @return CommentListResponse
+     */
+    public function getCommentReplies(string $commentId, ?string $pageToken = null): CommentListResponse
+    {
+        $prefix = __FUNCTION__;
+        $parts = 'snippet';
+        $params = [
+            'parentId' => $commentId,
+            'maxResults' => 50,
+        ];
+        $params['pageToken'] = $pageToken === 'next' ? $this->getNextPageToken($prefix, [$parts, $params]) : $pageToken;
+
+        return $this->cacheRemember($prefix, [$parts, $params], function () use ($prefix, $parts, $params) {
+            $response = $this->service->comments->listComments($parts, $params);
+            $this->setNextPageToken($prefix, [$parts, $params], $response->getNextPageToken());
+            return $response;
         });
     }
 }
