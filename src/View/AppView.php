@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\View;
 
 use App\View\Helper\NavBarHelper;
+use App\View\Helper\ReactWidgetHelper;
 use App\View\Helper\YouTubeHelper;
 use Authentication\View\Helper\IdentityHelper;
 use BootstrapUI\View\Helper\BreadcrumbsHelper;
@@ -42,6 +43,7 @@ use Cake\View\View;
  * @property IdentityHelper $Identity
  * @property NavBarHelper $NavBar
  * @property YouTubeHelper $YouTube
+ * @property ReactWidgetHelper $ReactWidget
  */
 class AppView extends View
 {
@@ -66,5 +68,6 @@ class AppView extends View
         $this->loadHelper('Authentication.Identity');
         $this->loadHelper('NavBar');
         $this->loadHelper('YouTube');
+        $this->loadHelper('ReactWidget');
     }
 }
