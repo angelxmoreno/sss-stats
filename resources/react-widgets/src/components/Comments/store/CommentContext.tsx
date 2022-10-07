@@ -12,7 +12,6 @@ configure({
     observableRequiresReaction: true,
     safeDescriptors: true,
 })
-console.log('fizz')
 const CommentsCtx = createContext<CommentsStore>(undefined!);
 export const useCommentsCtx = () => useContext(CommentsCtx);
 
