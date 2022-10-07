@@ -93,13 +93,22 @@ class GoogleObjectToEntities
      */
     protected static function upsert(Table $table, array $search, array $patch = []): EntityInterface
     {
-        $entity = $table->findOrCreate($search);
-        if (count($patch) > 0) {
-            $entity = $table->patchEntity($entity, $patch);
-            $entity = $table->saveOrFail($entity);
-        }
+        try {
+            $entity = $table->findOrCreate($search);
+            if (count($patch) > 0) {
+                $entity = $table->patchEntity($entity, $patch);
+                $entity = $table->saveOrFail($entity);
+            }
 
-        return $entity;
+            return $entity;
+        } catch (Throwable $e) {
+            throw new CakeException(sprintf(
+                'Unable to upsert %s due to "%s" using "%s"',
+                $table->getAlias(),
+                $e->getMessage(),
+                json_encode($search, JSON_PRETTY_PRINT)
+            ));
+        }
     }
 
     /**

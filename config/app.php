@@ -1,6 +1,7 @@
 <?php
 
 use Cake\Cache\Engine\FileEngine;
+use Cake\Cache\Engine\NullEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
 use Cake\Log\Engine\FileLog;
@@ -90,8 +91,8 @@ return [
      * enable timestamping regardless of debug value.
      */
     'Asset' => [
-        //'timestamp' => true,
-        // 'cacheTime' => '+1 year'
+        'timestamp' => true,
+        'cacheTime' => '+1 year',
     ],
 
     /*
@@ -156,7 +157,10 @@ return [
             'duration' => '+12 hours',
             'url' => env('CACHE_GOOGLE_API_URL', null),
         ],
-
+        '_null_' => [
+            'className' => NullEngine::class,
+            'serialize' => true,
+        ],
     ],
 
     /*

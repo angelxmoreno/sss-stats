@@ -9,6 +9,7 @@ use App\Model\Entity\YouTubeVideoCount;
 use App\Model\Table\EpisodesTable;
 use App\Model\Table\YouTubeVideoCountsTable;
 use App\Model\Table\YouTubeVideosTable;
+use App\Service\GoogleObjectToEntities;
 use App\Service\YouTubeApi;
 use Cake\Chronos\Date;
 use Cake\Command\Command;
@@ -31,7 +32,7 @@ class VideoImportCommand extends Command
 {
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $this->service = new YouTubeApi();
+        $this->service = new YouTubeApi(null, '_null_');
         $this->args = $args;
         $this->io = $io;
         $this->Episodes = $this->fetchTable(EpisodesTable::class);
@@ -66,6 +67,7 @@ class VideoImportCommand extends Command
             if ($episode) {
                 $this->io->out("\t" . 'Saving Episode ' . $episode->name);
                 $this->Episodes->saveOrFail($episode);
+                $this->getVideoComments($youTubeVideo, $episode);
             }
         }
 
@@ -112,6 +114,7 @@ class VideoImportCommand extends Command
         if (preg_match('/\[SSS #([0-9]+)[^\]]*\]/', $youTubeVideo->title, $matches)) {
             $episode_number = $matches[1];
             $exists = $this->Episodes->findByEpisodeNumber($episode_number)->count() > 0;
+
             if ($exists) return null;
             $this->io->out(sprintf("\t" . '%s correlates to episode #%s', $youTubeVideo->title, $episode_number));
             return $this->Episodes->newEntity([
@@ -121,5 +124,13 @@ class VideoImportCommand extends Command
             ]);
         }
         return null;
+    }
+
+    protected function getVideoComments(YouTubeVideo $youTubeVideo, Episode $episode)
+    {
+        $this->io->out(sprintf("\t" . 'fetching comment threads from episode %s', $episode->episode_number));
+        $response = $this->service->getVideoCommentThreads($youTubeVideo->uid);
+        $this->io->out(sprintf("\t\t" . 'saving %n comment threads from episode %s', $response->count(), $episode->episode_number));
+        GoogleObjectToEntities::commentThreadListResponseToYouTubeComments($response);
     }
 }
