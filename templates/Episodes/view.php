@@ -17,7 +17,10 @@ $headerBodies = [
     new HeaderBody('Metrics', 'coming soon', 'metricsHeader', 'metricsBody', true),
     new HeaderBody('Snacks', 'coming soon'),
     new HeaderBody('Films', 'coming soon'),
-    new HeaderBody('Comments', 'coming soon'),
+    new HeaderBody('Comments', $this->ReactWidget->widgetAsCode('comments', [
+        'videoId' => $episode->you_tube_video->id,
+        'user' => $this->Identity->isLoggedIn() ? json_encode($this->Identity->get()) : null,
+    ])),
     new HeaderBody('Description', $this->Text->autoParagraph($this->Text->autoLink($episode->you_tube_video->description, ['target' => 'outbound']))),
 ];
 

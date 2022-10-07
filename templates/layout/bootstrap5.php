@@ -62,4 +62,5 @@ $this->Html->script($scriptFiles, ['block' => 'script']);
     </div>
 </footer>
 <?= $this->fetch('script') ?>
+
 </body>

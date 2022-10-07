@@ -51,8 +51,13 @@
         }
     },
     "scripts": {
+        "react-widgets:build": "App\\Console\\ReactWidgets::build",
         "pre-autoload-dump": "Google\\Task\\Composer::cleanup",
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "post-install-cmd": [
+            "App\\Console\\Installer::postInstall",
+            "./bin/cake bootstrap install",
+            "App\\Console\\ReactWidgets::postInstall"
+        ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",

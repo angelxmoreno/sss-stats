@@ -42,6 +42,7 @@ $sortActiveClass = $sortClass . ' active';
 </div>
 <hr/>
 <?php $this->end() ?>
+<hr/>
 
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2 pb-2">
     <?php foreach ($episodes as $episode): ?>
