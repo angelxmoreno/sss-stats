@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Model\Entity\YouTubeComment;
 use App\Model\Table\YouTubeCommentsTable;
-use App\Service\GoogleObjectToEntities;
 use App\Service\YouTubeApi;
 use App\View\JsonPlusView;
 use Cake\Datasource\ResultSetInterface;
@@ -24,7 +23,7 @@ class YouTubeCommentsController extends AppController
     public $paginate = [
         'limit' => 10,
         'order' => [
-            'published' => 'desc',
+            'published' => 'asc',
         ],
     ];
 
@@ -32,7 +31,7 @@ class YouTubeCommentsController extends AppController
     {
         parent::initialize();
         $this->viewBuilder()->setClassName(JsonPlusView::class);
-        $this->YouTubeApi = YouTubeApi::getInstance();
+        $this->Authentication->allowUnauthenticated(['count', 'index']);
     }
 
     /**
@@ -44,9 +43,6 @@ class YouTubeCommentsController extends AppController
     {
         $this->getRequest()->allowMethod('get');
         if (!$video_id) throw new NotFoundException();
-        $video = $this->YouTubeComments->YouTubeVideos->get($video_id);
-        $result = $this->YouTubeApi->getVideoCommentThreads($video->uid);
-        GoogleObjectToEntities::commentThreadListResponseToYouTubeComments($result);
         $query = $this->YouTubeComments
             ->find()
             ->where([
@@ -55,10 +51,21 @@ class YouTubeCommentsController extends AppController
             ->contain([
                 'YouTubeCommentAuthors',
                 'ChildYouTubeComments' => ['YouTubeCommentAuthors'],
-            ]);
+            ])->cache(serialize([
+                $video_id,
+                $this->getRequest()->getQueryParams(),
+            ]));
 
         $youTubeComments = $this->paginate($query);
 
         $this->set(compact('youTubeComments'));
+    }
+
+    public function count(?int $video_id = null)
+    {
+        $this->getRequest()->allowMethod('get');
+        if (!$video_id) throw new NotFoundException();
+        $video = $this->YouTubeComments->YouTubeVideos->get($video_id);
+        $this->set('count', $video->comment_count);
     }
 }

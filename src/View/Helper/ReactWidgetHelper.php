@@ -24,6 +24,16 @@ class ReactWidgetHelper extends Helper
             : $this->widgetAsCode($name, $params);
     }
 
+    public function widgetAsIframe(string $name, array $params = []): string
+    {
+        $src = 'http://localhost:3000/' . $name . '?' . http_build_query($params);
+        return $this->Html->tag('iframe', '', [
+            'src' => $src,
+            'scrolling' => "no",
+            'frameborder' => "0",
+        ]);
+    }
+
     public function widgetAsCode(string $name, array $params = []): string
     {
         $this->Html->script([
@@ -36,17 +46,7 @@ class ReactWidgetHelper extends Helper
             $options['data-' . Inflector::dasherize($k)] = $v;
         }
 
-        return $this->Html->div('reactWidget-'.$name, '', $options);
-    }
-
-    public function widgetAsIframe(string $name, array $params = []): string
-    {
-        $src = 'http://localhost:3000/' . $name . '?' . http_build_query($params);
-        return $this->Html->tag('iframe', '', [
-            'src' => $src,
-            'scrolling' => "no",
-            'frameborder' => "0",
-        ]);
+        return $this->Html->div('reactWidget-' . $name, '', $options);
     }
 
 }
