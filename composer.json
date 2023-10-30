@@ -14,7 +14,7 @@
         "google/apiclient": "^2.12.1",
         "league/oauth2-client": "^2.6",
         "league/oauth2-google": "^4.0",
-        "mobiledetect/mobiledetectlib": "^2.8",
+        "mobiledetect/mobiledetectlib": "^3.74",
         "muffin/trash": "^3.1",
         "ext-json": "*",
         "ext-pdo": "*"
